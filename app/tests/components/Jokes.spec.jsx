@@ -6,7 +6,7 @@ import chai, {expect} from 'chai'
 chai.use(require('chai-enzyme')())
 import {shallow} from 'enzyme'
 
-import Jokes from './Jokes'
+import Jokes from '../../components/Jokes'
 
 describe('<Jokes />', () => {
   const joke = {
@@ -15,9 +15,9 @@ describe('<Jokes />', () => {
   }
 
   let root
-  beforeEach('render the root', () =>
+  beforeEach('render the root', () => {
     root = shallow(<Jokes />)
-  )
+  })
 
   it('shows a joke', () => {
     root.setState({ joke, answered: false })

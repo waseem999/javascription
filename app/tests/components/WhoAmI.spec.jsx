@@ -9,7 +9,7 @@ import {spy} from 'sinon'
 chai.use(require('sinon-chai'))
 import {createStore} from 'redux'
 
-import WhoAmIContainer, {WhoAmI} from './WhoAmI'
+import WhoAmIContainer, {WhoAmI} from '../../components/WhoAmI'
 
 describe('<WhoAmI/>', () => {
   const user = {
@@ -17,9 +17,9 @@ describe('<WhoAmI/>', () => {
   }
   const logout = spy()
   let root
-  beforeEach('render the root', () =>
+  beforeEach('render the root', () => {
     root = shallow(<WhoAmI user={user} logout={logout}/>)
-  )
+  })
 
   it('greets the user', () => {
     expect(root.text()).to.contain(user.name)
