@@ -18,18 +18,19 @@ export default class AddProduct extends Component {
 //   !!!!!TODO!!!! make a url path for this axios request
 
     handleSubmit(event){
-        axios({method: 'post', url: '/coffee', params:{
+        axios({method: 'post', url: '/coffee', data:{
             name: this.state.name,
             roast: this.state.roast,
             region: this.state.region,
             description: this.state.description,
             photo: this.state.photo
         }})
-        .then()
+        .then(result => console.log(result))
+        .catch(err => console.log(err))
     }
 
     handleChange(event){
-        this.setState({[event.name]: event.value})
+        this.setState({[event.target.name]: event.target.value})
     }
 
     render(props){
