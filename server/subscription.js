@@ -8,7 +8,7 @@ const {mustBeLoggedIn, forbidden,} = require('./auth.filters')
 
 
 
-router.get('/', mustBeLoggedIn(), forbidden('user not found'), (req, res, next) => {
+router.get('/', mustBeLoggedIn, forbidden('user not found'), (req, res, next) => {
   return Subscription.findOne({ 
       where: { 
         userId: req.session.userId
@@ -20,7 +20,7 @@ router.get('/', mustBeLoggedIn(), forbidden('user not found'), (req, res, next) 
     .catch(next);
 });
 
-router.put('/', mustBeLoggedIn(), forbidden('user not found'), (req, res, next) => {
+router.put('/', mustBeLoggedIn, forbidden('user not found'), (req, res, next) => {
    Subscription.findOne({
        where : {
          userId : req.session.userId
