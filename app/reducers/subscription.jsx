@@ -7,14 +7,16 @@ export const logDay = day => ({
 });
 
 const initialState = { 
-    daysselected: [false, false, false, false, false, false, false]
+    dayselected: [false, false, false, false, false, false, false]
   };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_DAY: 
-       return Object.assign({}, state, { daysselected: action.days });
-     
+
+       return Object.assign({}, state, { dayselected: action.days });
+        break;
+
 
     default: 
        return state;

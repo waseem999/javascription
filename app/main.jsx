@@ -22,6 +22,7 @@ const ExampleApp = connect(
     </div>
 )
 
+
 render (
   <Provider store={store}>
     <Router history={browserHistory}>
