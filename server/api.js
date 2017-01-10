@@ -8,6 +8,8 @@ api
   .use('/auth', require('./auth'))
   .use('/users', require('./users'))
 
+  .use('/coffee', require('./coffee'))
+
 // Send along any errors
 api.use((err, req, res, next) => {
   res.status(500).send(err)
