@@ -50,12 +50,12 @@ export const SubscriptionSchedule = () => (
 );
 
 function mapStateToProps(state){
-  let freqency = state.preferences.frequency;
-  let time = state.preferences.time;
+  let dayselected = state.subscription.dayselected;
+  let time = state.subscription.time;
 
 
   return {
-    frequency, time 
+    dayselected, time 
   }
 }
 
