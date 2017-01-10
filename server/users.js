@@ -2,24 +2,24 @@
 
 const Express = require('express');
 const router = Express.router();
-const db = require('APP/db')
+const models = require('APP/db/models');
 
 const {mustBeLoggedIn, forbidden,} = require('./auth.filters')
 
 router.get('/', forbidden('only admins can list users'), (req, res, next){
-	db.User.findAll()
+	models.User.findAll()
 	.then(users => res.json(users))
 	.catch(next)
 })
 
 router.get('/:id', mustBeLoggedIn, function(req, res, next){
-	db.User.findById(req.params.id)
+	models.User.findById(req.params.id)
 	.then(user => res.json(user))
 	.catch(next);
 });
 
 router.post('/', function(req, res, next){
-	db.User.create(req.body)
+	models.User.create(req.body)
 	.then(user => res.status(201).json(user))
 	.catch(next)
 });
