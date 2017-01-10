@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import connect from 'react-redux';
+import AccessDenied from './accessdenied.jsx';
 
-export default class AddProduct extends Component {
+class AddProduct extends Component {
     constructor(props){
         super(props);
         this.state = {
@@ -33,6 +35,8 @@ export default class AddProduct extends Component {
 
     render(props){
         return (
+            (props.user.accounttype === 'administrator') ?
+
             <form onSubmit={this.handleSubmit}>
                 <input name='name' value={this.state.name} placeholder="Name" onChange={this.handleChange}/>
                 <input name='roast' value={this.state.roast} placeholder="Roast" onChange={this.handleChange}/>
@@ -46,6 +50,23 @@ export default class AddProduct extends Component {
                 <input name='photo' value={this.state.photo} placeholder="Photo URL" onChange={this.handleChange}/>
                 <button type="submit" onSubmit={this.handleSubmit} >Submit Coffee</button>
             </form>
+            :
+            <AccessDenied />
         );
     }
 }
+
+const mapStateToProps = function(state, ownProps){
+    return {
+        admin: state.user.accounttype
+    }
+}
+
+const mapDispatchToProps = function(dispatch){
+    return {
+
+    }
+}
+
+
+export default AddCoffee = connect(mapStateToProps, mapDispatchToProps)(AddProduct);
