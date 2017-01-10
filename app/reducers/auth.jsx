@@ -1,9 +1,10 @@
 import axios from 'axios'
+/* eslint no-use-before-define: 0 */
 
 const reducer = (state=null, action) => {
   switch(action.type) {
-  case AUTHENTICATED:
-    return action.user  
+    case AUTHENTICATED:
+      return action.user
   }
   return state
 }
@@ -18,7 +19,7 @@ export const login = (username, password) =>
     axios.post('/api/auth/local/login',
       {username, password})
       .then(() => dispatch(whoami()))
-      .catch(() => dispatch(whoami()))      
+      .catch(() => dispatch(whoami()))
 
 export const logout = () =>
   dispatch =>

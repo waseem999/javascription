@@ -1,4 +1,5 @@
 'use strict'
+/* eslint no-undef: 0, new-cap: 0 */
 
 const debug = require('debug')('oauth')
 const Sequelize = require('sequelize')
@@ -15,11 +16,11 @@ const OAuth = db.define('oauths', {
   // OAuth v1 fields
   token: Sequelize.STRING,
   tokenSecret: Sequelize.STRING,
-  
+
   // The whole profile as JSON
   profileJson: Sequelize.JSON,
 }, {
-	indexes: [{fields: ['uid'], unique: true,}],
+  indexes: [{fields: ['uid'], unique: true,}],
 })
 
 OAuth.V2 = (accessToken, refreshToken, profile, done) =>
@@ -42,7 +43,7 @@ OAuth.V2 = (accessToken, refreshToken, profile, done) =>
     })
     .then(({ oauth, user }) => user ||
       User.create({
-        name: profile.displayName,        
+        name: profile.displayName,
       }).then(user => db.Promise.props({
         user,
         _setOauthUser: oauth.setUser(user)
@@ -51,15 +52,14 @@ OAuth.V2 = (accessToken, refreshToken, profile, done) =>
     .then(({ user }) => done(null, user))
     .catch(done)
 
-
 OAuth.setupStrategy =
 ({
   provider,
   strategy,
   config,
   oauth=OAuth.V2,
-  passport 
-}) => {      
+  passport
+}) => {
   const undefinedKeys = Object.keys(config)
         .map(k => config[k])
         .filter(value => typeof value === 'undefined')

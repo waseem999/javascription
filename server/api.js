@@ -1,6 +1,6 @@
 'use strict'
 
-const db = require('APP/db')
+require('APP/db')
 const api = module.exports = require('express').Router()
 
 api
@@ -11,7 +11,7 @@ api
   .use('/coffee', require('./coffee'))
 
 // Send along any errors
-api.use((err, req, res, next) => {
+api.use((err, req, res) => {
   res.status(500).send(err)
 })
 

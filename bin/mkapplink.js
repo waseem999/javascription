@@ -20,15 +20,15 @@ You might try this:
 
   rm ${appLink}
 
-Then run me again.  
+Then run me again.
 
   ~ xoxo, bones
 ********************************************************************`
 
 function makeAppSymlink() {
   console.log(`Linking '${appLink}' to '..'`)
-  try {    
-    try { fs.unlinkSync(appLink) } catch(swallowed) { }
+  try {
+    try { fs.unlinkSync(appLink) } catch (swallowed) { }
     fs.symlinkSync('..', appLink)
   } catch (error) {
     console.error(chalk.red(symlinkError(error)))
@@ -39,7 +39,7 @@ function makeAppSymlink() {
 
 function ensureAppSymlink() {
   try {
-    const currently = fs.readlinkSync(appLink)    
+    const currently = fs.readlinkSync(appLink)
     if (currently !== '..') {
       throw new Error(`${appLink} is pointing to '${currently}' rather than '..'`)
     }
