@@ -22,7 +22,9 @@ module.exports = {
         query: {
           presets: ['react', 'es2015', 'stage-2']
         }
-      },
+      }
+    ],
+    preloaders: [
       {
         test: /(\.js|\.jsx)$/,
         loader: 'eslint',
