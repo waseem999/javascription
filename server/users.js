@@ -1,21 +1,36 @@
 'use strict'
 
-const Router = require('express').Router;
+const Express = require('express');
+const router = Express.router();
 const db = require('APP/db')
-const User = db.model('users')
 
 const {mustBeLoggedIn, forbidden,} = require('./auth.filters')
 
-module.exports = new Router()
-	.get('/', forbidden('only admins can list users'), (req, res, next) =>
-		User.findAll()
-		.then(users => res.json(users))
-		.catch(next))
-	.post('/', (req, res, next) =>
-		User.create(req.body)
-		.then(user => res.status(201).json(user))
-		.catch(next))
-	.get('/:id', mustBeLoggedIn, (req, res, next) =>
-		User.findById(req.params.id)
-		.then(user => res.json(user))
-		.catch(next))
+router.get('/', forbidden('only admins can list users'), (req, res, next){
+	db.User.findAll()
+	.then(users => res.json(users))
+	.catch(next)
+})
+
+router.get('/:id', mustBeLoggedIn, function(req, res, next){
+	db.User.findById(req.params.id)
+	.then(user => res.json(user))
+	.catch(next);
+});
+
+router.post('/', function(req, res, next){
+	db.User.create(req.body)
+	.then(user => res.status(201).json(user))
+	.catch(next)
+});
+
+
+router.use('/', function(err, req, res, next){
+	console.log("_____ERROR in the user routes_______ \n");
+	res.status(err.status || 500).send(err);
+});
+
+module.exports = router;
+
+
+	
