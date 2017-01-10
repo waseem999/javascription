@@ -1,4 +1,5 @@
 'use strict'
+/* globals describe, it, before */
 
 const db = require('APP/db')
 const User = require('./user')
@@ -13,7 +14,7 @@ describe('User', () => {
         .then(user => user.authenticate('ok'))
         .then(result => expect(result).to.be.true))
 
-    it("resolves false if the password doesn't match", () =>
+    it('resolves false if the password doesn\'t match', () =>
       User.create({ password: 'ok' })
         .then(user => user.authenticate('not ok'))
         .then(result => expect(result).to.be.false))
