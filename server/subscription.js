@@ -4,10 +4,11 @@ const models = require('APP/db/models');
 const Subscription = models.Subscription;
 const User = models.User;
 const bodyParser = require('body-parser');
+const {mustBeLoggedIn, forbidden,} = require('./auth.filters')
 
 
 
-router.get('/', (req, res, next) => {
+router.get('/', mustBeLoggedIn, forbidden('user not found'), (req, res, next) => {
   return Subscription.findOne({ 
       where: { 
         userId: req.session.userId
@@ -19,7 +20,7 @@ router.get('/', (req, res, next) => {
     .catch(next);
 });
 
-router.put('/', (req, res, next) => {
+router.put('/', mustBeLoggedIn, forbidden('user not found'), (req, res, next) => {
    Subscription.findOne({
        where : {
          userId : req.session.userId
