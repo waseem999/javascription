@@ -8,13 +8,13 @@ import {shallow} from 'enzyme'
 import {spy} from 'sinon'
 chai.use(require('sinon-chai'))
 
-import {Login} from './Login'
+import {Login} from '../../components/Login'
 
 describe('<Login />', () => {
   let root
-  beforeEach('render the root', () =>
+  beforeEach('render the root', () => {
     root = shallow(<Login/>)
-  )
+  })
 
   it('shows a login form', () => {
     expect(root.find('input[name="username"]')).to.have.length(1)
