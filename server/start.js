@@ -43,6 +43,10 @@ module.exports = app
   // Send index.html for anything else.
   .get('/*', (_, res) => res.sendFile(resolve(__dirname, '..', 'public', 'index.html')))
 
+
+  // integrate bootstrap
+  .use(express.static(resolve(__dirname,'..','node_modules/bootstrap/dist')));
+
 if (module === require.main) {
   // Start listening only if we're the main module.
   // 

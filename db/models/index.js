@@ -11,8 +11,8 @@ const Subscription = require('./subscription');
 const Tier = require('./tier');
 const Subscriptionproduct = require('./subscriptionproduct');
 
-User.belongsToMany(Product, {as: 'favorite'});
-Product.belongsToMany(User, {as: 'favoriter'});
+User.belongsToMany(Product, {as: 'favorite', through: 'favorite'});
+Product.belongsToMany(User, {as: 'favoriter', through: 'favorite'});
 Subscription.belongsToMany(Product, {through: Subscriptionproduct});
 Product.belongsToMany(Subscription, {through: Subscriptionproduct});
 Subscription.belongsTo(Address);
@@ -22,7 +22,7 @@ Address.hasMany(Subscription);
 Product.belongsTo(Tier);
 Tier.hasMany(Product);
 User.belongsTo(Subscription);
-Subscription.belongsTo(User)
+Subscription.hasMany(User);
 
 
 
