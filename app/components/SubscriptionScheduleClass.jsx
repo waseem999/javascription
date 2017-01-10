@@ -1,7 +1,8 @@
 import React from 'react';
+import {connect} from 'react-redux';
 
 
-const SubscriptionSchedule = () => (
+export const SubscriptionSchedule = () => (
     <div>
         <div className="checkbox">
             <label>
@@ -48,4 +49,23 @@ const SubscriptionSchedule = () => (
     </div>
 );
 
-export default SubscriptionSchedule;
+function mapStateToProps(state){
+  let freqency = state.preferences.frequency;
+  let time = state.preferences.time;
+
+
+  return {
+    frequency, time 
+  }
+}
+
+function mapDispatchToProps(state){
+  return {
+
+  }
+};
+
+
+export default connect (mapStateToProps, mapDispatchToProps)(SubscriptionSchedule);
+
+
