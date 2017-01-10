@@ -13,8 +13,10 @@ const initialState = {
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_DAY: 
+
        return Object.assign({}, state, { dayselected: action.days });
         break;
+
 
     default: 
        return state;
