@@ -24,6 +24,4 @@ Tier.hasMany(Product);
 User.belongsTo(Subscription);
 Subscription.belongsTo(User)
 
-
-
 module.exports = {User, Product, Address, Subscription, Tier}
