@@ -8,18 +8,18 @@ import store from './store'
 import Jokes from './components/Jokes'
 import Login from './components/Login'
 import WhoAmI from './components/WhoAmI'
-import NavBar from './components/Navbar'
+import Navbar from './components/Navbar'
 
 const ExampleApp = connect(
   ({ auth }) => ({ user: auth })
 ) (
   ({ user, children }) =>
     <div>
+      <Navbar/>
       {/**<nav>
         {user ? <WhoAmI/> : <Login/>}
       </nav> }
       {children**/}
-      <Navbar/>
     </div>
 )
 
