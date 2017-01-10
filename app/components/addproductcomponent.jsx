@@ -15,10 +15,8 @@ export default class AddProduct extends Component {
         this.handleChange = this.handleChange.bind(this);
     }
 
-//   !!!!!TODO!!!! make a url path for this axios request
-
     handleSubmit(event){
-        axios({method: 'post', url: '/coffee', data:{
+        axios({method: 'post', url: '/api/coffee/new', data:{
             name: this.state.name,
             roast: this.state.roast,
             region: this.state.region,
