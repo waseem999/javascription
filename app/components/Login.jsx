@@ -2,7 +2,7 @@ import React from 'react'
 
 export const Login = (props) => {
 
-  const login = props.actions.login;
+  const login = props.login;
 
   return (
     <form className="signUpLogin" onSubmit={evt => {
