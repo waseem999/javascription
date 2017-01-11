@@ -1,8 +1,7 @@
 const Express = require('express');
 
-const router = Express.router();
+const router = Express.Router();
 const db = require('APP/db/models/index.js')
-const User = db.model('users')
 
 router.post('/new', function(req, res, next){
     let coffeeData = req.body.data;
