@@ -1,0 +1,1 @@
+// test if a random joke is picked before the component mounts
