@@ -1,5 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router';
+import ReactModal from 'react-modal'
 
 class Navbar extends React.Component {
  
@@ -13,7 +14,10 @@ class Navbar extends React.Component {
     return (
       <ul className="nav navbar-nav navbar-right">
         <li>
-          <Link to="/login" activeClassName="active">Login</Link>
+          <button className="navbar-btn btn btn-default"
+            onClick={this.props.showModal.bind(this)}
+          >Login
+        </button>
         </li>
       </ul>
     );
@@ -36,6 +40,7 @@ class Navbar extends React.Component {
   }
   
   render() {  
+    console.log('PROPS',this.props)
     return (
     <nav className="navbar navbar-inverse" role="navigation">
       <div className="navbar-header">
@@ -72,18 +77,20 @@ class Navbar extends React.Component {
 
 
 import {login, logout} from 'APP/app/reducers/auth';
+import {showModal, hideModal} from 'APP/app/reducers/loginModal';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
 function mapStateToProps(state){
   return {
-    user: state.auth
+    user: state.auth,
+    modalVisible: state.modalVisible
   }
 }
 
 function mapDispatchToProps(dispatch){
   return {
-    actions: bindActionCreators({login, logout}, dispatch)
+    actions: bindActionCreators({login, logout, showModal, hideModal}, dispatch)
   }
 }
-export default connect (mapStateToProps)(Navbar)
+export default connect (mapStateToProps, mapDispatchToProps)(Navbar)
