@@ -1,4 +1,4 @@
-'use strict'
+// 'use strict'
 
 
 const express = require('express');
@@ -6,7 +6,6 @@ const router = express.Router();
 
 const models = require('APP/db/models');
 
-const {mustBeLoggedIn, forbidden,} = require('./auth.filters')
 
 
 router.get('/', forbidden('only admins can list users'), function(req, res, next){
