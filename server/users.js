@@ -27,7 +27,24 @@ router.get('/:id', mustBeLoggedIn, function(req, res, next){
 });
 
 router.post('/', function(req, res, next) {
-  models.User.create(req.body)
+  models.User.create({
+	  name: req.body.name,
+	  email: req.body.email,
+	  phonenumber: req.body.phonenumber,
+	  address: {
+		  streetaddress: '',
+		  unitnumber: '',
+		  city: '',
+		  state: '',
+		  zipcode: '',
+		  country: '',
+		  security: false,
+		  comments: '',
+		  deliverycontactnumber: '',
+		  deliverycontactname: '',
+		  deliveryaddresstype: 'business'
+	  }
+  })
     .then(user => res.status(201).json(user))
     .catch(next)
 });
