@@ -18,7 +18,7 @@ export const Navbar = (props)=> (
           <Link to="/" activeClassName="active">Home</Link>
         </li>
         <li>
-          <Link to="/account" activeClassName="active">Account</Link>
+          <Link to="/users" activeClassName="active">Account</Link>
         </li>
         <li>
           <Link to="/contact" activeClassName="active">Contact</Link>

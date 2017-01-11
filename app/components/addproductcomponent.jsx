@@ -69,4 +69,4 @@ const mapDispatchToProps = function(dispatch){
 }
 
 
-export default AddCoffee = connect(mapStateToProps, mapDispatchToProps)(AddProduct);
+export default connect(mapStateToProps, mapDispatchToProps)(AddProduct);
