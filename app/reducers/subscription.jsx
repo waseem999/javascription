@@ -7,7 +7,7 @@ export const logDay = day => ({
 });
 
 const initialState = { 
-    dayselected: [false, false, false, false, false, false, false]
+    dayselected: []
   };
 
 const reducer = (state = initialState, action) => {
