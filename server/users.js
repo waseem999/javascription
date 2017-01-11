@@ -1,15 +1,18 @@
 'use strict'
 
+
 const express = require('express');
 const router = express.Router();
+
 const models = require('APP/db/models');
 
 const {mustBeLoggedIn, forbidden,} = require('./auth.filters')
 
-router.get('/', forbidden('only admins can list users'), (req, res, next) => {
-  models.User.findAll()
-    .then(users => res.json(users))
-    .catch(next)
+
+router.get('/', forbidden('only admins can list users'), function(req, res, next){
+	models.User.findAll()
+	.then(users => res.json(users))
+	.catch(next)
 })
 
 router.get('/:id', mustBeLoggedIn, function(req, res, next) {
