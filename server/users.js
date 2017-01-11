@@ -14,10 +14,16 @@ router.get('/', forbidden('only admins can list users'), function(req, res, next
 	.catch(next)
 })
 
-router.get('/:id', mustBeLoggedIn, function(req, res, next) {
-  models.User.findById(req.params.id)
-    .then(user => res.json(user))
-    .catch(next);
+
+router.get('/:id', mustBeLoggedIn, function(req, res, next){
+	models.User.findById({
+		where: {id: req.params.id},
+		include: [{
+			model: models.Address
+		}]
+	})
+	.then(user => res.json(user))
+	.catch(next);
 });
 
 router.post('/', function(req, res, next) {
