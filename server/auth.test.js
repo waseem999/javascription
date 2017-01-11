@@ -1,3 +1,6 @@
+'use strict';
+/* globals describe, it, before */
+
 const request = require('supertest-as-promised')
 const {expect} = require('chai')
 const db = require('APP/db')
@@ -15,8 +18,8 @@ describe('/api/auth', () => {
       .then(() =>
         User.create(
           {email: alice.username,
-          password: alice.password
-        })
+            password: alice.password
+          })
       )
   )
 
@@ -35,24 +38,24 @@ describe('/api/auth', () => {
         .post('/api/auth/local/login')
         .send({username: alice.username, password: 'wrong'})
         .expect(401)
-      )      
+      )
   })
 
   describe('GET /whoami', () => {
     describe('when logged in,', () => {
       const agent = request.agent(app)
       before('log in', () => agent
-        .post('/api/auth/local/login') 
+        .post('/api/auth/local/login')
         .send(alice))
 
       it('responds with the currently logged in user', () =>
         agent.get('/api/auth/whoami')
-          .set('Accept', 'application/json')        
-          .expect(200)          
+          .set('Accept', 'application/json')
+          .expect(200)
           .then(res => expect(res.body).to.contain({
             email: alice.username
           }))
-      )      
+      )
     })
 
     it('when not logged in, responds with an empty object', () =>
@@ -66,7 +69,7 @@ describe('/api/auth', () => {
     const agent = request.agent(app)
 
     before('log in', () => agent
-      .post('/api/auth/local/login') 
+      .post('/api/auth/local/login')
       .send(alice))
 
     it('logs you out and redirects to whoami', () => agent

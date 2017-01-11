@@ -1,17 +1,20 @@
+/* eslint no-unused-expressions: 0 */
+/* globals describe, beforeEach, it */
+
 import React from 'react'
-import chai, {expect} from 'chai'                                                   
+import chai, {expect} from 'chai'
 chai.use(require('chai-enzyme')())
 import {shallow} from 'enzyme'
 import {spy} from 'sinon'
 chai.use(require('sinon-chai'))
 
-import {Login} from './Login'
+import {Login} from '../../components/Login'
 
 describe('<Login />', () => {
   let root
-  beforeEach('render the root', () =>
+  beforeEach('render the root', () => {
     root = shallow(<Login/>)
-  )
+  })
 
   it('shows a login form', () => {
     expect(root.find('input[name="username"]')).to.have.length(1)
@@ -30,7 +33,7 @@ describe('<Login />', () => {
   })
 
   describe('when submitted', () => {
-    const login = spy()    
+    const login = spy()
     const root = shallow(<Login login={login}/>)
     const submitEvent = {
       preventDefault: spy(),
@@ -43,13 +46,13 @@ describe('<Login />', () => {
     beforeEach('submit', () => {
       login.reset()
       submitEvent.preventDefault.reset()
-      root.simulate('submit', submitEvent)      
+      root.simulate('submit', submitEvent)
     })
 
-    it('calls props.login with credentials', () => {      
+    it('calls props.login with credentials', () => {
       expect(login).to.have.been.calledWith(
         submitEvent.target.username.value,
-        submitEvent.target.password.value,
+        submitEvent.target.password.value
       )
     })
 

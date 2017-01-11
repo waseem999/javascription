@@ -5,13 +5,13 @@ const Sequelize = require('sequelize')
 const db = require('APP/db')
 
 const User = db.define('users', {
-  name: Sequelize.STRING,  
+  name: Sequelize.STRING,
   email: {
     type: Sequelize.STRING,
     validate: {
-			isEmail: true,
-			notEmpty: true,
-		}
+      isEmail: true,
+      notEmpty: true,
+    }
   },
   phonenumber: {
     type: Sequelize.STRING,
@@ -23,10 +23,10 @@ const User = db.define('users', {
   },
 
   // We support oauth, so users may or may not have passwords.
-  password_digest: Sequelize.STRING,
-	password: Sequelize.VIRTUAL
+  ['password_digest']: Sequelize.STRING,
+  password: Sequelize.VIRTUAL
 }, {
-	indexes: [{fields: ['email'], unique: true,}],
+  indexes: [{fields: ['email'], unique: true,}],
   hooks: {
     beforeCreate: setEmailAndPassword,
     beforeUpdate: setEmailAndPassword,
@@ -38,7 +38,7 @@ const User = db.define('users', {
           (err, result) =>
             err ? reject(err) : resolve(result))
         )
-    }    
+    }
   }
 })
 
@@ -47,11 +47,11 @@ function setEmailAndPassword(user) {
   if (!user.password) return Promise.resolve(user)
 
   return new Promise((resolve, reject) =>
-	  bcrypt.hash(user.get('password'), 10, (err, hash) => {
-		  if (err) reject(err)
-		  user.set('password_digest', hash)
+    bcrypt.hash(user.get('password'), 10, (err, hash) => {
+      if (err) reject(err)
+      user.set('password_digest', hash)
       resolve(user)
-	  })
+    })
   )
 }
 

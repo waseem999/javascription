@@ -1,16 +1,20 @@
+'use strict';
+/* globals describe, it */
+
+require('APP/db')
+
 const request = require('supertest-as-promised')
 const {expect} = require('chai')
-const db = require('APP/db')
-const User = require('APP/db/models/user')
+// const User = require('APP/db/models/user')
 const app = require('./start')
 
 describe('/api/users', () => {
   describe('when not logged in', () => {
     it('GET /:id fails 401 (Unauthorized)', () =>
       request(app)
-        .get(`/api/users/1`)
+        .get('/api/users/1')
         .expect(401)
-    )    
+    )
 
     it('POST creates a user', () =>
       request(app)
@@ -32,7 +36,7 @@ describe('/api/users', () => {
         .redirects(1)
         .then(res => expect(res.body).to.contain({
           email: 'eve@interloper.com'
-        }))        
+        }))
     )
   })
 })
