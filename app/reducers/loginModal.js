@@ -4,10 +4,8 @@ const reducer = (state=false, action) => {
   switch(action.type) {
   case SHOW_MODAL:
     return action.modal  
-    break;
   case HIDE_MODAL:
     return action.modal
-    break;
   }
   return state
 }
