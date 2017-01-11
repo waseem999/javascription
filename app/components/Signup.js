@@ -16,7 +16,7 @@ class Signup extends React.Component {
 
   createUser(e) {
     e.preventDefault();
-    axios.post('/api/signup', {
+    axios.post('/api/users', {
       name: this.state.name,
       phone: this.state.phone,
       address: this.state.address,
