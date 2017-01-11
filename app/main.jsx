@@ -12,6 +12,7 @@ import AccountPage from './components/accountpage.jsx'
 import AddProduct from './components/addproductcomponent.jsx'
 // import Subscription from './components/SubscriptionScheduleClass.jsx'
 
+
 const ExampleApp = connect(
   ({ auth }) => ({ user: auth })
 ) (
@@ -20,7 +21,8 @@ const ExampleApp = connect(
       <Navbar/>
       {/**<nav>
         {user ? <WhoAmI/> : <Login/>}
-      </nav> }**/}
+
+      </nav> **/}
       {children}
     </div>
 )
@@ -42,6 +44,7 @@ render (
         <Route path="/stories" component={HomeContainer} />
         <Route path="/users" component={AccountPage} />
         <Route path="/coffee" component={AddProduct} />
+
       </Route>
     </Router>
   </Provider>,
