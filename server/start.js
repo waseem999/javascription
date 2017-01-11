@@ -1,7 +1,7 @@
 'use strict';
 
 const app = require('./index');
-const pkg = require('app');
+const pkg = require('APP');
 
 if (module === require.main) {
   // Start listening only if we're the main module.
