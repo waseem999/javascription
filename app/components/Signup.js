@@ -44,6 +44,14 @@ class Signup extends React.Component {
     })
   }
 
+  checkPassword(e){
+    e.preventDefault()
+    this.setState({confirmPassword: e.target.value})
+    if(this.state.password !== this.state.confirmPassword){
+      this.setState({confirmPasswordWarning: true})
+    }
+  }
+
   render(){
     const login = this.props.actions.login;
 
@@ -111,7 +119,7 @@ class Signup extends React.Component {
         <label>Confirm Password</label>
         <div className={`form-group ${this.state.confirmPasswordWarning ? "has-danger" : ''}`}>
           <input value={this.state.confirmPassword}
-            onChange={this.updateInput.bind(this, 'confirmPassword')}
+            onChange={this.checkPassword.bind(this)}
             name="confirmPassword" type="password" placeholder="Confirm Password" className="form-control"/>
         </div>
 
