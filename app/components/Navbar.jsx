@@ -1,10 +1,14 @@
 import React from 'react';
 import {Link} from 'react-router';
 
-export const Navbar = (props)=> (
+export const Navbar = props => (
   <nav className="navbar navbar-inverse">
     <div className="navbar-header">
-      <button type="button" className="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+      <button
+        type="button"
+        className="navbar-toggle"
+        data-toggle="collapse"
+        data-target=".navbar-collapse">
         <span className="sr-only">Toggle navigation</span>
         <span className="icon-bar"></span>
         <span className="icon-bar"></span>
@@ -23,7 +27,7 @@ export const Navbar = (props)=> (
         <li>
           <Link to="/contact" activeClassName="active">Contact</Link>
         </li>
-      </ul> 
+      </ul>
       <ul className="nav navbar-nav navbar-right">
         <li>
          <Link to="/signup" activeClassName="active">Signup</Link>
@@ -35,7 +39,6 @@ export const Navbar = (props)=> (
     </div>
   </nav>
   );
-
 
 import {connect} from 'react-redux'
 
