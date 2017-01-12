@@ -13,7 +13,7 @@ import LoginSignupBox from './components/LoginSignupBox'
 import HomeContainer from './components/homecontainer.jsx'
 import AccountPage from './components/accountpage.jsx'
 import AddProduct from './components/addproductcomponent.jsx'
-// import Subscription from './components/SubscriptionScheduleClass.jsx'
+import Subscription from './components/SubscriptionScheduleClass.jsx'
 
 const ExampleAppComponent = (props) => (
   <div>
@@ -51,10 +51,7 @@ render (
         <IndexRedirect to="/home" />
         <Route path="/home" component={HomeContainer} />
         <Route path="/login" component={Login} />
-        {/** 
         <Route path="/subscriptions" component={Subscription} />
-        */}
-         <Route path="/subscription" component={SubscriptionSchedule} />
         <Route path="/signup" component={HomeContainer} />
         <Route path="/about" component={HomeContainer} />
         <Route path="/contact" component={HomeContainer} />
