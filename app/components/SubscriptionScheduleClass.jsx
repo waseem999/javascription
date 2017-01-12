@@ -3,51 +3,47 @@ import {connect} from 'react-redux';
 import axios from 'axios';
 
 export class SubscriptionSchedule extends Component {
-
-    constructor(props){
-        super(props);
-        this.state = {
-            selecteddays: {
-                Sunday: false,
-                Monday: false,
-                Tuesday: false,
-                Wednesday: false,
-                Thursday: false,
-                Friday: false,
-                Saturday: false
-            }
-        }
-        this.setDays = this.setDays.bind(this);
-        this.handleChange = this.handleChange.bind(this);
+  constructor(props){
+    super(props);
+    this.state = {
+      selecteddays: {
+        Sunday: false,
+        Monday: false,
+        Tuesday: false,
+        Wednesday: false,
+        Thursday: false,
+        Friday: false,
+        Saturday: false
+      }
     }
-        //this.handleSubmit = this.handleSubmit.bind(this);
+    this.setDays = this.setDays.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
 
-    handleChange(event){
-        let dayofweek = event.target.name;
-        let value = event.target.value==="true" ? true : false;
-        this.setState((state) => {
-            let newState = Object.assign({}, state)
-            newState.selecteddays = Object.assign({}, state.selecteddays)
-            newState.selecteddays[dayofweek] = value;
-            return newState;
-        });        
-    }
+  handleChange(event){
+    const dayofweek = event.target.name;
+    const value = event.target.value==='true';
+    this.setState(state => {
+      const newState = Object.assign({}, state)
+      newState.selecteddays = Object.assign({}, state.selecteddays)
+      newState.selecteddays[dayofweek] = value;
+      return newState;
+    });
+  }
 
-    setDays(event) {
-        let selecteddays = this.state.selecteddays;
-        event.preventDefault();
-        axios.put('/api/subscription', {
-        selecteddays
-        })
-        .then( ()=> {}
-    )};
-           
-    render(){
-        let days = this.state.selecteddays;
-        console.log(this.state)
-        return ( 
+  setDays(event) {
+    const selecteddays = this.state.selecteddays;
+    event.preventDefault();
+    axios.put('/api/subscription', {
+      selecteddays
+    })
+      .then( () => {}
+    )
+  }
+
+  render(){
+    const days = this.state.selecteddays;
+    return (
 
             <div>
                 {
@@ -60,7 +56,7 @@ export class SubscriptionSchedule extends Component {
                     </div>
                 ))
                 }
-                <button type="submit" className="btn btn-primary" 
+                <button type="submit" className="btn btn-primary"
                 onClick={this.setDays}>Submit Days</button>
             </div>
     )
@@ -68,13 +64,11 @@ export class SubscriptionSchedule extends Component {
 }
 
 function mapStateToProps(state){
-
   const selecteddays = state.subscription.selecteddays;
   const time = state.subscription.time;
 
-
   return {
-    selecteddays, time 
+    selecteddays, time
   }
 }
 

@@ -10,11 +10,12 @@ export class Navbar extends React.Component {
   }
 
   renderLoginSignup() {
+    const showModal = this.props.showModal ? this.props.showModal.bind(this) : () => {};
     return (
       <ul className="nav navbar-nav navbar-right">
         <li>
           <button className="navbar-btn btn btn-default"
-            onClick={this.props.showModal.bind(this)}
+            onClick={showModal}
           >Login
         </button>
         </li>
@@ -39,7 +40,6 @@ export class Navbar extends React.Component {
   }
 
   render() {
-    console.log('PROPS', this.props)
     return (
     <nav className="navbar navbar-inverse" role="navigation">
       <div className="navbar-header">
