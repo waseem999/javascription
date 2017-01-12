@@ -13,11 +13,11 @@ const User = db.define('users', {
       notEmpty: true,
     }
   },
-  phonenumber: {
+  phone_number: {
     type: Sequelize.STRING,
     allowNull: false
   },
-  accounttype: {
+  account_type: {
     type: Sequelize.ENUM('customer', 'administrator'),
     defaultValue: 'customer'
   },
