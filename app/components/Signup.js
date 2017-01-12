@@ -16,7 +16,8 @@ class Signup extends React.Component {
       zipcode: '',
       email: '',
       password: '',
-      confirmPassword: ''
+      confirmPassword: '',
+      confirmPasswordWarning: false
     }
   }
 
@@ -41,6 +42,14 @@ class Signup extends React.Component {
     this.setState({
       [field]: event.target.value
     })
+  }
+
+  checkPassword(e){
+    e.preventDefault()
+    this.setState({confirmPassword: e.target.value})
+    if(this.state.password !== this.state.confirmPassword){
+      this.setState({confirmPasswordWarning: true})
+    }
   }
 
   render(){
@@ -108,9 +117,9 @@ class Signup extends React.Component {
         </div>
 
         <label>Confirm Password</label>
-        <div className="form-group">
+        <div className={`form-group ${this.state.confirmPasswordWarning ? "has-danger" : ''}`}>
           <input value={this.state.confirmPassword}
-            onChange={this.updateInput.bind(this, 'confirmPassword')}
+            onChange={this.checkPassword.bind(this)}
             name="confirmPassword" type="password" placeholder="Confirm Password" className="form-control"/>
         </div>
 
