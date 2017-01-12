@@ -1,6 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router';
-import ReactModal from 'react-modal'
+import ReactModal from 'react-modal';
+import {DropdownButton} from 'react-bootstrap'
 
 export class Navbar extends React.Component {
   constructor(props) {
@@ -28,9 +29,14 @@ export class Navbar extends React.Component {
   }
 
   renderLogout() {
-    // let name= this.props.user.name - later add this after welcome
+
     return (
       <ul className="nav navbar-nav navbar-right">
+        <li>
+          <div className="navbar-brand clearfix">
+            <span className="glyphicon glyphicon-user"></span>
+          </div>
+        </li>
         <li>
         <button className="navbar-btn btn btn-default"
           onClick={this.logoutClick.bind(this)}>Logout
