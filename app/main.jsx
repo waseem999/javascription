@@ -47,18 +47,21 @@ render (
   <Provider store={store}>
     <Router history={browserHistory}>
       <Route path="/" component={ExampleApp}>
+
         <IndexRedirect to="/home" />
         <Route path="/home" component={HomeContainer} />
         <Route path="/login" component={Login} />
         {/** 
         <Route path="/subscriptions" component={Subscription} />
         */}
+         <Route path="/subscription" component={SubscriptionSchedule} />
         <Route path="/signup" component={HomeContainer} />
         <Route path="/about" component={HomeContainer} />
         <Route path="/contact" component={HomeContainer} />
         <Route path="/stories" component={HomeContainer} />
         <Route path="/users" component={AccountPage} />
         <Route path="/coffee" component={AddProduct} />
+
       </Route>
     </Router>
   </Provider>,
