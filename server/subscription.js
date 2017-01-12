@@ -20,14 +20,25 @@ router.get('/', mustBeLoggedIn, forbidden('user not found'), (req, res, next) =>
     .catch(next);
 });
 
-router.put('/', mustBeLoggedIn, forbidden('user not found'), (req, res, next) => {
+router.put('/days', mustBeLoggedIn, forbidden('user not found'), (req, res, next) => {
    Subscription.findOne({
        where : {
          userId : req.session.userId
        }
      })
      .then(subscription => {
-       subscription.update({frequency : req.body.dayselected})
+       Subscription.update({frequency : req.body.dayselected})
      })
      .catch(next);
 });
+
+router.put('/coffees', mustBeLoggedIn, forbidden('user not found'), (req, res, next) => {
+   Subscription.addProduct(req.query.data)
+     .then(coffees => {
+       res.send(coffees);
+     })
+     .catch(next);
+});
+
+
+export default router;
