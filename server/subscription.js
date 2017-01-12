@@ -20,7 +20,21 @@ router.get('/', mustBeLoggedIn, forbidden('user not found'), (req, res, next) =>
     .catch(next);
 });
 
-router.put('/', (req, res, next) => {
+
+
+
+router.put('/coffees', mustBeLoggedIn, forbidden('user not found'), (req, res, next) => {
+   Subscription.addProduct(req.query.data)
+     .then(coffees => {
+       res.send(coffees);
+     })
+     .catch(next);
+});
+
+
+export default router;
+
+router.put('/days', (req, res, next) => {
   console.log("selecteddays", req.body.selecteddays)
   Subscription.create({
     frequencyObject: req.body.selecteddays
@@ -42,3 +56,4 @@ router.put('/', (req, res, next) => {
 });
 
 module.exports = router;
+
