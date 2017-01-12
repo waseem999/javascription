@@ -28,8 +28,8 @@ describe('<Login />', () => {
   })
 
   it('has a login button', () => {
-    const submit = root.find('input[type="submit"]')
-    expect(submit).to.have.length(1)
+    const submit = root.find('[type="submit"]') 
+    expect(submit.length).to.be.at.least(1) 
   })
 
   describe('when submitted', () => {
