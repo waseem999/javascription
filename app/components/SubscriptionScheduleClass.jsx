@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import axios from 'axios';
 
-
 export class SubscriptionSchedule extends Component {
+
     constructor(props){
         super(props);
         this.state = {
@@ -20,6 +20,9 @@ export class SubscriptionSchedule extends Component {
         this.setDays = this.setDays.bind(this);
         this.handleChange = this.handleChange.bind(this);
     }
+        //this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+  }
 
     handleChange(event){
         let dayofweek = event.target.name;
@@ -45,9 +48,10 @@ export class SubscriptionSchedule extends Component {
         let days = this.state.selecteddays;
         console.log(this.state)
         return ( 
+
             <div>
                 {
-                Object.keys(days).map((day, i) => ( 
+                Object.keys(days).map((day, i) => (
                     <div className="checkbox" key={i}>
                         <label>
                             <input onChange={this.handleChange} type="checkbox" id="checkbox" name={day} checked={days[day]} value={!days[day]}/>
@@ -59,13 +63,14 @@ export class SubscriptionSchedule extends Component {
                 <button type="submit" className="btn btn-primary" 
                 onClick={this.setDays}>Submit Days</button>
             </div>
-        )
-    }
+    )
+  }
 }
 
 function mapStateToProps(state){
-  let selecteddays = state.subscription.selecteddays;
-  let time = state.subscription.time;
+
+  const selecteddays = state.subscription.selecteddays;
+  const time = state.subscription.time;
 
 
   return {
@@ -77,8 +82,6 @@ function mapDispatchToProps(state){
   return {
 
   }
-};
+}
 
 export default connect (mapStateToProps, mapDispatchToProps)(SubscriptionSchedule);
-
-

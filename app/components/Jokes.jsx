@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 
 export default class BonesJokes extends Component {
+  constructor(props) {
+    super(props);
+    this.answer = this.answer.bind(this);
+  }
+
   componentDidMount() {
     this.nextJoke()
   }
@@ -154,4 +159,3 @@ A: Tickle his funny bone!`
     ? [...all, {q: row}]
     : [...all.slice(0, all.length - 1), Object.assign({a: row}, all[all.length - 1])],
     [])
-

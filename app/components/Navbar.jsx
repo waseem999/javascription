@@ -2,8 +2,7 @@ import React from 'react';
 import {Link} from 'react-router';
 import ReactModal from 'react-modal'
 
-class Navbar extends React.Component {
- 
+export class Navbar extends React.Component {
   constructor(props) {
     super(props);
     this.renderLoginSignup = this.renderLoginSignup.bind(this);
@@ -24,7 +23,7 @@ class Navbar extends React.Component {
   }
 
   renderLogout() {
-    // let name= this.props.user.name - later add this after welcome 
+    // let name= this.props.user.name - later add this after welcome
     return (
       <ul className="nav navbar-nav navbar-right">
         <span>
@@ -38,9 +37,9 @@ class Navbar extends React.Component {
       </ul>
     );
   }
-  
-  render() {  
-    console.log('PROPS',this.props)
+
+  render() {
+    console.log('PROPS', this.props)
     return (
     <nav className="navbar navbar-inverse" role="navigation">
       <div className="navbar-header">
@@ -63,7 +62,7 @@ class Navbar extends React.Component {
           <li>
             <Link to="/contact" activeClassName="active">Contact</Link>
           </li>
-        </ul> 
+        </ul>
         {/** this.props.user.name  ?
           this.renderLogout() :
           this.renderLoginSignup()**/}
@@ -72,9 +71,7 @@ class Navbar extends React.Component {
     </nav>
     );
   }
-} 
-
-
+}
 
 import {login, logout} from 'APP/app/reducers/auth';
 import {showModal, hideModal} from 'APP/app/reducers/loginModal';
