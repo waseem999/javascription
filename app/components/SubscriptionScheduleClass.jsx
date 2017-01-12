@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
+import axios from 'axios';
 
 
 export class SubscriptionSchedule extends Component {
@@ -16,31 +17,29 @@ export class SubscriptionSchedule extends Component {
                 Saturday: false
             }
         }
-        //this.handleSubmit = this.handleSubmit.bind(this);
+        this.setDays = this.setDays.bind(this);
         this.handleChange = this.handleChange.bind(this);
     }
 
-    // js has a json object that has a stringify method that will turn json 
-    // 
-
     handleChange(event){
-        console.log("EVENT", event.target)
         let dayofweek = event.target.name;
         let value = event.target.value==="true" ? true : false;
         this.setState((state) => {
             let newState = Object.assign({}, state)
             newState.selecteddays = Object.assign({}, state.selecteddays)
             newState.selecteddays[dayofweek] = value;
-            
             return newState;
-            
-        });
-                    // this.setState({
-                    //     selecteddays : {
-                    //         [dayofweek] : event.target.value
-                    //     }
-                    // })
+        });        
     }
+
+    setDays(event) {
+        let selecteddays = this.state.selecteddays;
+        event.preventDefault();
+        axios.put('/api/subscription', {
+        selecteddays
+        })
+        .then( ()=> {}
+    )};
            
     render(){
         let days = this.state.selecteddays;
@@ -57,18 +56,20 @@ export class SubscriptionSchedule extends Component {
                     </div>
                 ))
                 }
+                <button type="submit" className="btn btn-primary" 
+                onClick={this.setDays}>Submit Days</button>
             </div>
         )
     }
 }
 
 function mapStateToProps(state){
-  let dayselected = state.subscription.dayselected;
+  let selecteddays = state.subscription.selecteddays;
   let time = state.subscription.time;
 
 
   return {
-    dayselected, time 
+    selecteddays, time 
   }
 }
 

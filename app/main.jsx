@@ -47,6 +47,7 @@ render (
   <Provider store={store}>
     <Router history={browserHistory}>
       <Route path="/" component={ExampleApp}>
+
         <IndexRedirect to="/home" />
         <Route path="/home" component={HomeContainer} />
         <Route path="/login" component={Login} />
@@ -57,6 +58,7 @@ render (
         <Route path="/stories" component={HomeContainer} />
         <Route path="/users" component={AccountPage} />
         <Route path="/coffee" component={AddProduct} />
+
       </Route>
     </Router>
   </Provider>,
