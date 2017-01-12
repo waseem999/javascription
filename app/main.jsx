@@ -29,8 +29,6 @@ render (
   <Provider store={store}>
     <Router history={browserHistory}>
       <Route path="/" component={ExampleApp}>
-        <IndexRedirect to="/jokes" />
-        <Route path="/jokes" component={Jokes} />
         <Route path="/subscription" component={SubscriptionSchedule} />
 
       </Route>
