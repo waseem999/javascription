@@ -41,6 +41,10 @@ module.exports = app
   // integrate bootstrap
   .use(express.static(path.join(__dirname,'..','node_modules/bootstrap/dist')))
 
+  // integrate jquery
+  .use(express.static(path.join(__dirname,'..','node_modules/jquery/dist')))
+
+
   // Serve our api
   .use('/api', require('./api'))
 
