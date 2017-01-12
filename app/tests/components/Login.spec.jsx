@@ -4,16 +4,23 @@
 import React from 'react'
 import chai, {expect} from 'chai'
 chai.use(require('chai-enzyme')())
-import {shallow} from 'enzyme'
+import {render, shallow} from 'enzyme'
 import {spy} from 'sinon'
 chai.use(require('sinon-chai'))
 
 import {Login} from '../../components/Login'
 
+const defaultProps = {
+  actions: {
+    login: () => {},
+    hideModal: () => {}
+  }
+};
+
 describe('<Login />', () => {
   let root
   beforeEach('render the root', () => {
-    root = shallow(<Login/>)
+    root = shallow(<Login {...defaultProps} />)
   })
 
   it('shows a login form', () => {
@@ -28,13 +35,17 @@ describe('<Login />', () => {
   })
 
   it('has a login button', () => {
-    const submit = root.find('[type="submit"]') 
-    expect(submit.length).to.be.at.least(1) 
+    const submit = root.find('[type="submit"]')
+    expect(submit.length).to.be.at.least(1)
   })
 
   describe('when submitted', () => {
-    const login = spy()
-    const root = shallow(<Login login={login}/>)
+    const login = spy();
+    const props = Object.assign({}, defaultProps);
+    const state = {
+      email: 'bones@example.com',
+      password: '12345'
+    };
     const submitEvent = {
       preventDefault: spy(),
       target: {
@@ -43,9 +54,14 @@ describe('<Login />', () => {
       }
     }
 
+    props.actions.login = login;
+
+    const root = shallow(<Login {...props}/>)
+
     beforeEach('submit', () => {
       login.reset()
       submitEvent.preventDefault.reset()
+      root.setState(state);
       root.simulate('submit', submitEvent)
     })
 
