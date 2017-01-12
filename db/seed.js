@@ -38,9 +38,18 @@ const seedUsers = () => db.Promise.map([
 
   ], user => db.model('users').create(user, {include:[{model: models.Address, as: 'address'}, {model: models.Subscription, as: 'subscription'}]}))
 
-const seedTiers = function(){
-  
-}
+const seedTiers = () => db.Promise.map([
+  {name: 'Good', description: 'This is our base coffee.  Its super tasty and super cheap!!! Almost like dirt!', costpercup: 100, costperpound: 1500, 
+    product: [{
+      roast: 'dark', name: "Danielle's Dark", region: 'Antarctica', description: 'Wing picked by penguins who are paid a slaves wage!  Extra flavor added by deisel leaks from our 70 year old supertanker.'
+      },
+      {roast: 'extra dark', name: "Alan's Dirt", region: 'Sahara desert', description: 'Our coffee is grown in one of the driest, hottest, most inhospitable place in the world.  This gives our coffee extra flavor because the beans lack proper hydration.  Also, you can still taste the sand, which is awesome!'},
+      {roast: 'light', name: "Waseem's Worst", region: "Macedonia", description: "This coffee is almost as fake as the news that our 16 year old internet trolls make up.  You'll love the fake taste and fake smell!"}
+    ]
+  }
+], user => models.tier.create())
+
+
 
 db.didSync
   .then(() => db.sync({force: true}))
