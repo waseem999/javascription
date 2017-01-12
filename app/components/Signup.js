@@ -63,16 +63,35 @@ class Signup extends React.Component {
         </div>
 
         <label>Address</label>
-        <div className="input-group">
-          <input value={this.state.streetaddress}
-            onChange={this.updateInput.bind(this, 'streetaddress')}
-            name="streetaddress" type="text" placeholder="Street Address" className="form-control"/>
+        <div className="form-inline">
+          <div className="input-group">
+            <input value={this.state.streetaddress}
+              onChange={this.updateInput.bind(this, 'streetaddress')}
+              name="streetaddress" type="text" placeholder="Street Address" className="form-control"/>
+          </div>
+          <div className="input-group">
+            <input value={this.state.unitnumber}
+              onChange={this.updateInput.bind(this, 'unitnumber')}
+              name="unitnumber" type="text" placeholder="Unit/Apt" className="form-control"/>
+          </div>
         </div>
-        <div className="input-group">
-          <input value={this.state.unitnumber}
-            onChange={this.updateInput.bind(this, 'unitnumber')}
-            name="unitnumber" type="text" placeholder="Unit/Apt" className="form-control"/>
+        <div className="input-form">
+          <input value={this.state.city}
+          onChange= {this.updateInput.bind(this, 'city')} name="city" type="text" placeholder="City" className = "form-control"/>
         </div>
+        <div className="form-inline">
+          <div className="input-group">
+            <input value={this.state.state}
+              onChange={this.updateInput.bind(this, 'state')}
+              name="state" type="text" placeholder="State" className="form-control"/>
+          </div>
+          <div className="input-group">
+            <input value={this.state.zipcode}
+              onChange={this.updateInput.bind(this, 'zipcode')}
+              name="zipcode" type="text" placeholder="Zip Code" className="form-control"/>
+          </div>
+        </div>
+        <p></p>
 
         <label>Email Address</label>
         <div className="form-group">
