@@ -16,7 +16,7 @@ Product.belongsToMany(User, {as: 'favoriter', through: 'favorite'});
 Subscription.belongsToMany(Product, {through: Subscriptionproduct});
 Product.belongsToMany(Subscription, {through: Subscriptionproduct});
 
-User.belongsTo(Address, {as: 'billing_address'});
+User.belongsTo(Address, {as: 'billing_address', allowNull: false});
 Subscription.belongsTo(Address, {as: 'delivery_address'});
 
 Product.belongsTo(Tier);

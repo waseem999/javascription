@@ -15,3 +15,9 @@
 
 .selected-coffee {
   background-color: red; }
+
+.user-dropdown {
+  vertical-align: center;
+  display: block;
+  box-sizing: border-box;
+  line-height: 20px; }

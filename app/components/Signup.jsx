@@ -1,6 +1,7 @@
 import React from 'react';
 import { browserHistory } from 'react-router';
 import axios from 'axios';
+import {FormGroup, FormControl, HelpBlock, Alert} from 'react-bootstrap'
 
 class Signup extends React.Component {
 
@@ -16,9 +17,7 @@ class Signup extends React.Component {
       zipcode: '',
       email: '',
       password: '',
-      confirmPassword: '',
-      confirmPasswordWarning: false,
-      dirty: false
+      confirmPassword: ''
     }
   }
 
@@ -37,8 +36,11 @@ class Signup extends React.Component {
         zipcode: this.state.zipcode
       }
     })
-    .then(res => this.props.actions.login(res.data.email, res.data.password))
+    .then(res => {
+      this.props.actions.login(res.data.email, res.data.password)
+    })
     .then(() => this.props.actions.hideModal())
+    .catch(()=> this.props.actions.signinIssue())
   }
 
   updateInput(field, event) {
@@ -48,18 +50,21 @@ class Signup extends React.Component {
     })
   }
 
-  checkPassword(e){
-    const value = e.target.value;
-    let warning = false;
-    if(value !== this.state.password){
-      warning = true
+  checkEmail(){
+    function validateEmail(email) {
+      var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      return re.test(email);
     }
-    this.setState({
-      confirmPassword: value,
-      dirty: true,
-      confirmPasswordWarning: warning
-    });
+    let length = this.state.email.length;
+    if(!validateEmail(this.state.email) && length > 0) return 'error';
+    else if(length > 0 && validateEmail(this.state.email)) return 'success';
 
+  }
+
+  checkConfirmPassword() {
+    let length = this.state.confirmPassword.length;
+    if(this.state.confirmPassword !== this.state.password) return 'error';
+    else if (length > 0 && this.state.confirmPassword === this.state.password) return 'success';
   }
 
   render(){
@@ -67,6 +72,13 @@ class Signup extends React.Component {
 
     return (
       <form onSubmit={this.createUser.bind(this)} className="signUpLogin">
+
+      {this.props.signinProb ? 
+        (<Alert bsStyle="warning">
+          <strong>Oh no!</strong> Looks like there was an issue creating your account. Try again! 
+        </Alert>) : null
+      }
+
         <label>Name</label>
         <div className="form-group">
           <input value={this.state.name}
@@ -113,11 +125,18 @@ class Signup extends React.Component {
         <p></p>
 
         <label>Email Address</label>
-        <div className="form-group">
-          <input value={this.state.email}
+        <FormGroup
+          controlId="formBasicText"
+          validationState={this.checkEmail()}
+        >
+          <FormControl
+            value={this.state.email}
             onChange={this.updateInput.bind(this, 'email')}
-            name="username" type="text" placeholder="Email" className="form-control"/>
-        </div>
+            name="username" type="text" 
+            placeholder="Email" className="form-control"
+          />
+          <FormControl.Feedback />
+        </FormGroup>
 
         <label>Password</label>
         <div className="form-group">
@@ -127,12 +146,22 @@ class Signup extends React.Component {
         </div>
 
         <label>Confirm Password</label>
-        <div className={`form-group ${this.state.confirmPasswordWarning && this.state.dirty ? "has-danger" : ''}`}>
-          <input value={this.state.confirmPassword}
-            onChange={this.checkPassword.bind(this)}
-            name="confirmPassword" type="password" placeholder="Confirm Password" className="form-control"/>
-        </div>
-
+         <FormGroup
+          controlId="formBasicText"
+          validationState={this.checkConfirmPassword()}
+        >
+          <FormControl
+            type="text"
+            value={this.state.confirmPassword}
+            placeholder="Confirm Password"
+            type="password"
+            onChange={this.updateInput.bind(this,'confirmPassword')}
+          />
+          <FormControl.Feedback />
+          {this.state.confirmPasswordWarning ?
+            <HelpBlock>{this.state.confirmPasswordWarning}</HelpBlock>: null
+          }
+        </FormGroup>
         <button type="submit" className="btn btn-primary">Create Account & Login</button>
         </form>
     );
@@ -141,20 +170,26 @@ class Signup extends React.Component {
 
 
 import {login, logout} from 'APP/app/reducers/auth';
+import {signinIssue} from 'APP/app/reducers/signinIssues';
 import {hideModal} from 'APP/app/reducers/loginModal';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
 function mapStateToProps(state){
   return {
-    user: state.auth
+    user: state.auth,
+    signinProb: state.signinProb
   }
 }
 
 function mapDispatchToProps(dispatch){
   return {
-    actions: bindActionCreators({login, logout, hideModal}, dispatch)
+    actions: bindActionCreators({login, signinIssue, logout, hideModal}, dispatch)
   }
 }
 
 export default connect (mapStateToProps, mapDispatchToProps)(Signup)
+
+
+
+
