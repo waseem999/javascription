@@ -45,4 +45,8 @@ router.put('/days', (req, res, next) => {
   //    .catch(next);
 });
 
+router.get('/days', (req, res, next) => {
+  Subscription.findOne()
+})
+
 module.exports = router;
