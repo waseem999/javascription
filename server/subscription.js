@@ -46,11 +46,7 @@ router.put('/days', (req, res, next) => {
 });
 
 router.get('/days', (req, res, next) => {
-  Subscription.findOne({
-    where : {
-
-    }
-  })
+  Subscription.findOne()
 })
 
 module.exports = router;
