@@ -8,8 +8,8 @@ export class SubscriptionSchedule extends Component {
     super(props);
     this.state = {
       selecteddays: {
-        Sunday: "8 am",
-        Monday: "3 am",
+        Sunday: null,
+        Monday: null,
         Tuesday: null,
         Wednesday: null,
         Thursday: null,
