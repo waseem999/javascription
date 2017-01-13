@@ -1,6 +1,15 @@
+/**
+ * RESETS
+ */
+/**
+ * GENERIC
+ */
 .form-body {
   border: 1px solid black; }
 
+/**
+ * COMPONENTS
+ */
 .signUpLogin {
   padding-bottom: 15px; }
 
