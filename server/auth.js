@@ -5,6 +5,7 @@ const debug = require('debug')(`${app.name}:auth`)
 const passport = require('passport')
 
 const User = require('APP/db/models/index.js').User
+const models = require('APP/db/models/index.js')
 const OAuth = require('APP/db/models/oauth')
 const auth = require('express').Router()
 const {env} = app

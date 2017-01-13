@@ -1,6 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router';
-import ReactModal from 'react-modal'
+import ReactModal from 'react-modal';
+import {DropdownButton} from 'react-bootstrap'
 
 export class Navbar extends React.Component {
   constructor(props) {
@@ -23,16 +24,22 @@ export class Navbar extends React.Component {
     );
   }
 
+  logoutClick(){
+    this.props.actions.logout()
+  }
+
   renderLogout() {
-    // let name= this.props.user.name - later add this after welcome
+
     return (
       <ul className="nav navbar-nav navbar-right">
-        <span>
-          Welcome,
-        </span>
+        <li>
+          <div className="navbar-brand clearfix">
+            <span className="glyphicon glyphicon-user"></span>
+          </div>
+        </li>
         <li>
         <button className="navbar-btn btn btn-default"
-          onClick={logout}>Logout
+          onClick={this.logoutClick.bind(this)}>Logout
         </button>
         </li>
       </ul>
@@ -63,10 +70,9 @@ export class Navbar extends React.Component {
             <Link to="/contact" activeClassName="active">Contact</Link>
           </li>
         </ul>
-        {/** this.props.user.name  ?
+        {this.props.user  ?
           this.renderLogout() :
-          this.renderLoginSignup()**/}
-          {this.renderLoginSignup()}
+          this.renderLoginSignup()}
       </div>
     </nav>
     );
