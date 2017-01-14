@@ -4,11 +4,11 @@ const Sequelize = require('sequelize')
 const db = require('APP/db')
 
 const addressSchema = {
-  streetaddress: {
+  street_address: {
     type: Sequelize.STRING,
     allowNull: false
   },
-  unitnumber: {
+  unit_number: {
     type: Sequelize.STRING
   },
   city: {
@@ -34,13 +34,13 @@ const addressSchema = {
   comments: {
     type: Sequelize.TEXT
   },
-  deliverycontactnumber: {
+  delivery_contact_number: {
     type: Sequelize.STRING
   },
-  deliverycontactname: {
+  delivery_contact_name: {
     type: Sequelize.STRING
   },
-  deliveryaddresstype: {
+  delivery_address_type: {
     type: Sequelize.ENUM('home', 'business')
   }
 }

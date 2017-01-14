@@ -24,6 +24,19 @@ router.put('/coffees', mustBeLoggedIn, forbidden('user not found'), (req, res, n
     .catch(next);
 });
 
+
+
+
+
+router.put('/coffees', mustBeLoggedIn, forbidden('user not found'), (req, res, next) => {
+   Subscription.addProduct(req.query.data)
+     .then(coffees => {
+       res.send(coffees);
+     })
+     .catch(next);
+});
+
+
 router.put('/days', (req, res, next) => {
   console.log('selecteddays', req.body.selecteddays)
   Subscription.create({

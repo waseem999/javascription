@@ -18,9 +18,7 @@ const productSchema = {
   },
   photo: {
     type: Sequelize.STRING,
-    validate: {
-      isUrl: true
-    }
+    defaultValue: 'https://flic.kr/p/ce4bkm'
   }
 };
 
