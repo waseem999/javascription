@@ -15,12 +15,13 @@ User.belongsToMany(Product, {as: 'favorite', through: 'favorite'});
 Product.belongsToMany(User, {as: 'favoriter', through: 'favorite'});
 Subscription.belongsToMany(Product, {through: Subscriptionproduct});
 Product.belongsToMany(Subscription, {through: Subscriptionproduct});
-Subscription.belongsTo(Address);
-User.belongsTo(Address);
-Address.hasMany(User);
-Address.hasMany(Subscription);
+
+User.belongsTo(Address, {as: 'billing_address'});
+Subscription.belongsTo(Address, {as: 'delivery_address'});
+
 Product.belongsTo(Tier);
 Tier.hasMany(Product);
+
 User.belongsTo(Subscription);
 Subscription.hasMany(User);
 

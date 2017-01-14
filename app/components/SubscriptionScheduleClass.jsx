@@ -1,75 +1,93 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import axios from 'axios';
-
+import Days from './Days.jsx';
 
 export class SubscriptionSchedule extends Component {
-    constructor(props){
-        super(props);
-        this.state = {
-            selecteddays: {
-                Sunday: false,
-                Monday: false,
-                Tuesday: false,
-                Wednesday: false,
-                Thursday: false,
-                Friday: false,
-                Saturday: false
-            }
+  constructor(props){
+    super(props);
+    this.state = {
+      selecteddays: {
+        Sunday: null,
+        Monday: null,
+        Tuesday: null,
+        Wednesday: null,
+        Thursday: null,
+        Friday: null,
+        Saturday: null
+      }
+    }
+    this.setDays = this.setDays.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.handleTimeChange = this.handleTimeChange.bind(this);
+  }
+
+  handleChange(event){
+    const dayofweek = event.target.name;
+    const value = event.target.value==='true';
+    let time = this.state.selecteddays[dayofweek];
+    this.setState(state => {
+      const newState = Object.assign({}, state)
+      newState.selecteddays = Object.assign({}, state.selecteddays)
+      if (value){
+        if (!newState.selecteddays[dayofweek]){
+            newState.selecteddays[dayofweek] = "6:00 am"
         }
-        this.setDays = this.setDays.bind(this);
-        this.handleChange = this.handleChange.bind(this);
-    }
+      }
+      else {
+        newState.selecteddays[dayofweek] = null
+      }
+      return newState;
+    });
+  }
 
-    handleChange(event){
-        let dayofweek = event.target.name;
-        let value = event.target.value==="true" ? true : false;
-        this.setState((state) => {
-            let newState = Object.assign({}, state)
-            newState.selecteddays = Object.assign({}, state.selecteddays)
-            newState.selecteddays[dayofweek] = value;
-            return newState;
-        });        
-    }
+  handleTimeChange(event){
+      const dayofweek = event.target.name;
+      const value = event.target.value;
+      console.log(value)
+      this.setState(state => {
+        const newState = Object.assign({}, state, state.selecteddays);
+        newState.selecteddays[dayofweek] = value
+        return newState;
+      });
+  }
 
-    setDays(event) {
-        let selecteddays = this.state.selecteddays;
-        event.preventDefault();
-        axios.put('/api/subscription', {
-        selecteddays
-        })
-        .then( ()=> {}
-    )};
-           
-    render(){
-        let days = this.state.selecteddays;
-        console.log(this.state)
-        return ( 
+  setDays(event) {
+    const selecteddays = this.state.selecteddays;
+    event.preventDefault();
+    axios.put('/api/subscription/days', {
+      selecteddays
+    })
+      .then( () => {}
+    )
+  }
+
+  render(){
+    const days = this.state.selecteddays;
+    return (
             <div>
-                {
-                Object.keys(days).map((day, i) => ( 
-                    <div className="checkbox" key={i}>
-                        <label>
-                            <input onChange={this.handleChange} type="checkbox" id="checkbox" name={day} checked={days[day]} value={!days[day]}/>
-                            {day}
-                        </label>
-                    </div>
-                ))
-                }
-                <button type="submit" className="btn btn-primary" 
-                onClick={this.setDays}>Submit Days</button>
+              <div style={{textAlign : "center" } }>
+                  {
+                  Object.keys(days).map((day, i) => (
+                      <Days handleChange={this.handleChange} handleTimeChange={this.handleTimeChange} day={{name: day, value: days[day]}} days={days} i={i} key={i}/>
+                  ))
+                  }
+              </div>
+                <div style={{textAlign : "center" } }>
+                  <button type="submit" className="btn btn-primary"
+                  onClick={this.setDays}>Submit Days</button>
+                </div>
             </div>
-        )
-    }
+    )
+  }
 }
 
 function mapStateToProps(state){
-  let selecteddays = state.subscription.selecteddays;
-  let time = state.subscription.time;
-
+  const selecteddays = state.subscription.selecteddays;
+  const time = state.subscription.time;
 
   return {
-    selecteddays, time 
+    selecteddays, time
   }
 }
 
@@ -77,8 +95,6 @@ function mapDispatchToProps(state){
   return {
 
   }
-};
+}
 
 export default connect (mapStateToProps, mapDispatchToProps)(SubscriptionSchedule);
-
-

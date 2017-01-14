@@ -1,7 +1,6 @@
 import React from 'react'
 
-class Login extends React.Component {
-
+export class Login extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -11,6 +10,7 @@ class Login extends React.Component {
   }
 
   loginUser(e){
+    e.preventDefault();
     this.props.actions.login(this.state.email, this.state.password)
     this.props.actions.hideModal()
   }
@@ -31,20 +31,18 @@ class Login extends React.Component {
         </div>
         <label>Password</label>
         <div className="form-group">
-          <input name="password" 
-            type="password" 
+          <input name="password"
+            type="password"
             placeholder="Password"
-            className="form-control" 
+            className="form-control"
             value={this.state.password}
             onChange={this.updateInput.bind(this, 'password')} />
         </div>
         <button type="submit" className="btn btn-primary">Login</button>
       </form>
     );
-    
   }
 }
-
 
 import {login, logout} from 'APP/app/reducers/auth';
 import {hideModal} from 'APP/app/reducers/loginModal';
@@ -64,4 +62,3 @@ function mapDispatchToProps(dispatch){
 }
 
 export default connect (mapStateToProps, mapDispatchToProps)(Login)
-

@@ -16,7 +16,9 @@ class Signup extends React.Component {
       zipcode: '',
       email: '',
       password: '',
-      confirmPassword: ''
+      confirmPassword: '',
+      confirmPasswordWarning: false,
+      dirty: false
     }
   }
 
@@ -25,22 +27,39 @@ class Signup extends React.Component {
     axios.post('/api/users', {
       name: this.state.name,
       phonenumber: this.state.phoneNumber,
-      streetaddress: this.state.streetaddress,
-      unitnumber: this.state.unitnumber,
-      city: this.state.city,
-      state: this.state.state,
-      zipcode: this.state.zipcode,
       email: this.state.email,
-      password: this.state.password
+      password: this.state.password,
+      billing_address: {
+        streetaddress: this.state.streetaddress,
+        unitnumber: this.state.unitnumber,
+        city: this.state.city,
+        state: this.state.state,
+        zipcode: this.state.zipcode
+      }
     })
     .then(res => this.props.actions.login(res.data.email, res.data.password))
     .then(() => this.props.actions.hideModal())
   }
 
   updateInput(field, event) {
+    event.preventDefault()
     this.setState({
       [field]: event.target.value
     })
+  }
+
+  checkPassword(e){
+    const value = e.target.value;
+    let warning = false;
+    if(value !== this.state.password){
+      warning = true
+    }
+    this.setState({
+      confirmPassword: value,
+      dirty: true,
+      confirmPasswordWarning: warning
+    });
+
   }
 
   render(){
@@ -108,9 +127,9 @@ class Signup extends React.Component {
         </div>
 
         <label>Confirm Password</label>
-        <div className="form-group">
+        <div className={`form-group ${this.state.confirmPasswordWarning && this.state.dirty ? "has-danger" : ''}`}>
           <input value={this.state.confirmPassword}
-            onChange={this.updateInput.bind(this, 'confirmPassword')}
+            onChange={this.checkPassword.bind(this)}
             name="confirmPassword" type="password" placeholder="Confirm Password" className="form-control"/>
         </div>
 

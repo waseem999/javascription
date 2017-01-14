@@ -6,7 +6,7 @@ const db = require('APP/db')
 const subscriptionSchema = {
   frequency: {
     type: Sequelize.ARRAY(Sequelize.STRING),
-    defaultValue: [false, false, false, false, false, false, false],
+    defaultValue: [null, null, null, null, null, null, null],
     validate: {
       hasLengthOf : function(val){
         if (val.length !== 7) throw new Error(`array length not valid. Expected length of 7.  Instead got length of ${val.length}`);

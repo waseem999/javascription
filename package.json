@@ -4,8 +4,8 @@
   "description": "A happy little skeleton.",
   "main": "index.js",
   "scripts": {
-    "test": "check-node-version --node '>= 6.7.0' && bin/setup && mocha --compilers js:babel-register app/**/*.spec.js* db/**/*.spec.js server/**/*.spec.js tests/**/*.spec.js",
-    "test-watch": "check-node-version --node '>= 6.7.0' && bin/setup && mocha --compilers js:babel-register --watch app/**/*.spec.js* db/**/*.spec.js server/**/*.spec.js tests/**/*.spec.js",
+    "test": "check-node-version --node '>= 6.7.0' && bin/setup && mocha --reporter nyan --compilers js:babel-register $(find . -name '*.spec.js*' ! -path '*node_modules*')",
+    "test-watch": "check-node-version --node '>= 6.7.0' && bin/setup && mocha --watch --watch-extensions jsx --reporter nyan --compilers js:babel-register $(find . -name '*.spec.js*' ! -path '*node_modules*')",
     "build": "check-node-version --node '>= 6.7.0' && bin/setup && webpack",
     "build-watch": "check-node-version --node '>= 6.7.0' && bin/setup && webpack -w",
     "start": "check-node-version --node '>= 6.7.0' && bin/setup && nodemon server/start.js",
@@ -53,6 +53,7 @@
     "react-addons-css-transition-group": "^15.4.2",
     "react-addons-perf": "^15.4.2",
     "react-addons-transition-group": "^15.4.2",
+    "react-bootstrap": "^0.30.7",
     "react-dom": "^15.4.2",
     "react-modal": "^1.6.5",
     "react-redux": "^4.4.5",

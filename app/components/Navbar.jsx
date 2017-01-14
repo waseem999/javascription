@@ -1,9 +1,9 @@
 import React from 'react';
 import {Link} from 'react-router';
-import ReactModal from 'react-modal'
+import ReactModal from 'react-modal';
+import {DropdownButton} from 'react-bootstrap'
 
-class Navbar extends React.Component {
- 
+export class Navbar extends React.Component {
   constructor(props) {
     super(props);
     this.renderLoginSignup = this.renderLoginSignup.bind(this);
@@ -11,11 +11,12 @@ class Navbar extends React.Component {
   }
 
   renderLoginSignup() {
+    const showModal = this.props.showModal ? this.props.showModal.bind(this) : () => {};
     return (
       <ul className="nav navbar-nav navbar-right">
         <li>
           <button className="navbar-btn btn btn-default"
-            onClick={this.props.showModal.bind(this)}
+            onClick={showModal}
           >Login
         </button>
         </li>
@@ -23,24 +24,29 @@ class Navbar extends React.Component {
     );
   }
 
+  logoutClick(){
+    this.props.actions.logout()
+  }
+
   renderLogout() {
-    // let name= this.props.user.name - later add this after welcome 
+
     return (
       <ul className="nav navbar-nav navbar-right">
-        <span>
-          Welcome,
-        </span>
+        <li>
+          <div className="navbar-brand clearfix">
+            <span className="glyphicon glyphicon-user"></span>
+          </div>
+        </li>
         <li>
         <button className="navbar-btn btn btn-default"
-          onClick={logout}>Logout
+          onClick={this.logoutClick.bind(this)}>Logout
         </button>
         </li>
       </ul>
     );
   }
-  
-  render() {  
-    console.log('PROPS',this.props)
+
+  render() {
     return (
     <nav className="navbar navbar-inverse" role="navigation">
       <div className="navbar-header">
@@ -63,18 +69,15 @@ class Navbar extends React.Component {
           <li>
             <Link to="/contact" activeClassName="active">Contact</Link>
           </li>
-        </ul> 
-        {/** this.props.user.name  ?
+        </ul>
+        {this.props.user  ?
           this.renderLogout() :
-          this.renderLoginSignup()**/}
-          {this.renderLoginSignup()}
+          this.renderLoginSignup()}
       </div>
     </nav>
     );
   }
-} 
-
-
+}
 
 import {login, logout} from 'APP/app/reducers/auth';
 import {showModal, hideModal} from 'APP/app/reducers/loginModal';
