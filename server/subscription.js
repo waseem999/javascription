@@ -32,8 +32,6 @@ router.put('/coffees', mustBeLoggedIn, forbidden('user not found'), (req, res, n
 });
 
 
-export default router;
-
 router.put('/days', (req, res, next) => {
   console.log("selecteddays", req.body.selecteddays)
   Subscription.create({
