@@ -62,6 +62,13 @@ export class SubscriptionSchedule extends Component {
     )
   }
 
+componentWillMount() {
+this.setState(state => {
+  const newState = Object.assign({}, state, this.props.selecteddays);
+  return newState;
+  });;
+}
+
   render(){
     const days = this.state.selecteddays;
     return (
@@ -84,10 +91,8 @@ export class SubscriptionSchedule extends Component {
 
 function mapStateToProps(state){
   const selecteddays = state.subscription.selecteddays;
-  const time = state.subscription.time;
-
   return {
-    selecteddays, time
+    selecteddays
   }
 }
 
