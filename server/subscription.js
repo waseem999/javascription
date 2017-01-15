@@ -24,42 +24,25 @@ router.put('/coffees', mustBeLoggedIn, forbidden('user not found'), (req, res, n
     .catch(next);
 });
 
-
-
-
-
-router.put('/coffees', mustBeLoggedIn, forbidden('user not found'), (req, res, next) => {
-   Subscription.addProduct(req.query.data)
-     .then(coffees => {
-       res.send(coffees);
-     })
-     .catch(next);
-});
-
+router.use('/days', (req, res, next) =>{
+req.user.getSubscription()
+    .then(subscription => {
+      req.subscription = subscription;
+      next();
+    })
+    .catch(next);
+})
 
 router.put('/days', (req, res, next) => {
-  console.log('selecteddays', req.body.selecteddays)
-  Subscription.create({
-    frequencyObject: req.body.selecteddays
-  })
+    req.subscription.update({frequencyObject: req.body.selecteddays})
     .then(subscription =>
     res.json(subscription))
     .catch(next);
-
-  // console.log("BODY", req.body)
-  //  Subscription.findOne({
-  //      where : {
-  //        userId : req.session.userId
-  //      }
-  //    })
-  //    .then(subscription => {
-  //      subscription.update({frequency : req.body.dayselected})
-  //    })
-  //    .catch(next);
 });
 
 router.get('/days', (req, res, next) => {
-  Subscription.findOne()
+    res.json(req.subscription)
 })
+
 
 module.exports = router;
