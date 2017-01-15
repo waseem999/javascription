@@ -1,33 +1,30 @@
 import axios from 'axios';
-const ADD_DAY = "ADD_DAY";
+const ADD_SCHEDULE = "ADD_SCHEDULE";
 
-export const logDay = day => ({
-    type: ADD_DAY,
-    day
+export const logSchedule = schedule => ({
+    type: ADD_SCHEDULE,
+    schedule
 });
 
 const initialState = { 
-    dayselected: []
+    selecteddays: {}
   };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case ADD_DAY: 
-
-       return Object.assign({}, state, { dayselected: action.days });
-        break;
-
+    case ADD_SCHEDULE: 
+       return Object.assign({}, state, { selecteddays: action.schedule.frequencyObject });
 
     default: 
        return state;
   }
 }
 
-export const getUserSubscriptionDays = () => {
+export const getSubscription = () => {
   return dispatch => {
-    axios.get("/api/subscription")
+    axios.get("/api/subscription/days")
       .then(response => {
-        dispatch(logDay(response.data));
+        dispatch(logSchedule(response.data));
       })
       .catch((error)=> console.error(error));
   };
