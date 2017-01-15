@@ -4,6 +4,10 @@ const Sequelize = require('sequelize')
 const db = require('APP/db')
 
 const tierSchema = {
+  id: {
+    type: Sequelize.INTEGER,
+    primaryKey: true
+  },
   name: {
     type: Sequelize.STRING,
     allowNull: false

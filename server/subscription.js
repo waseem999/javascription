@@ -24,7 +24,6 @@ router.put('/coffees', mustBeLoggedIn, forbidden('user not found'), (req, res, n
     .catch(next);
 });
 
-
 router.use('/days', (req, res, next) =>{
 req.user.getSubscription()
     .then(subscription => {
