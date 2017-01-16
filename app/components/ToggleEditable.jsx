@@ -3,16 +3,28 @@ import { connect } from 'react-redux';
 
 const inputsByType = {
   text: TextInput,
-  textarea: TextArea
+  textarea: TextArea,
+  password: Password
 };
 
 export function ToggleEditable (props) {
-  const {attributes, content, editable, inputType} = props;
+  function changeHandler(e) {
+    e.preventDefault();
+    props.onChange(e.target.name, e.target.value);
+  }
+
+  const {attributes, content, editable, name, inputType} = props;
+
   return (
     <div className={'c-toggle-editable'}>
     {
       editable
-      ? React.createElement(inputsByType[inputType], attributes)
+      ? React.createElement(inputsByType[inputType],
+        {
+          ...attributes,
+          value: content,
+          name: name,
+          onChange: changeHandler})
       : content
     }
     </div>
@@ -32,6 +44,13 @@ export function TextArea(props) {
     <textarea {...props}>
       {props.content}
     </textarea>
+  );
+}
+
+export function Password(props) {
+  return (
+    <input type='password'
+      {...props}/>
   );
 }
 
