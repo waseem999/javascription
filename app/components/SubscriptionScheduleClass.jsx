@@ -19,17 +19,37 @@ export class SubscriptionSchedule extends Component {
     }
     this.setDays = this.setDays.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.handleTimeChange = this.handleTimeChange.bind(this);
   }
 
   handleChange(event){
     const dayofweek = event.target.name;
     const value = event.target.value==='true';
+    let time = this.state.selecteddays[dayofweek];
     this.setState(state => {
       const newState = Object.assign({}, state)
       newState.selecteddays = Object.assign({}, state.selecteddays)
-      value ? newState.selecteddays[dayofweek] = "1" : newState.selecteddays[dayofweek] = null ;
+      if (value){
+        if (!newState.selecteddays[dayofweek]){
+            newState.selecteddays[dayofweek] = "6:00 am"
+        }
+      }
+      else {
+        newState.selecteddays[dayofweek] = null
+      }
       return newState;
     });
+  }
+
+  handleTimeChange(event){
+      const dayofweek = event.target.name;
+      const value = event.target.value;
+      console.log(value)
+      this.setState(state => {
+        const newState = Object.assign({}, state, state.selecteddays);
+        newState.selecteddays[dayofweek] = value
+        return newState;
+      });
   }
 
   setDays(event) {
@@ -42,6 +62,13 @@ export class SubscriptionSchedule extends Component {
     )
   }
 
+componentWillMount() {
+this.setState(state => {
+  const newState = Object.assign({}, state, this.props.selecteddays);
+  return newState;
+  });;
+}
+
   render(){
     const days = this.state.selecteddays;
     return (
@@ -49,7 +76,7 @@ export class SubscriptionSchedule extends Component {
               <div style={{textAlign : "center" } }>
                   {
                   Object.keys(days).map((day, i) => (
-                      <Days handleChange={this.handleChange} day={{name: day, value: days[day]}} days={days} i={i} key={i}/>
+                      <Days handleChange={this.handleChange} handleTimeChange={this.handleTimeChange} day={{name: day, value: days[day]}} days={days} i={i} key={i}/>
                   ))
                   }
               </div>
@@ -64,10 +91,8 @@ export class SubscriptionSchedule extends Component {
 
 function mapStateToProps(state){
   const selecteddays = state.subscription.selecteddays;
-  const time = state.subscription.time;
-
   return {
-    selecteddays, time
+    selecteddays
   }
 }
 
