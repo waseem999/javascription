@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+import {Alert} from 'react-bootstrap';
 
 export class Login extends React.Component {
   constructor(props) {
@@ -24,6 +25,13 @@ export class Login extends React.Component {
   render(){
     return (
       <form className="signUpLogin" onSubmit={this.loginUser.bind(this)}>
+
+      {this.props.loginProb ? 
+        (<Alert bsStyle="warning">
+          <strong>Oh no!</strong> Looks like your email or password is incorrect. Try again!
+        </Alert>) : null
+      }
+
         <label>Email Address</label>
         <div className="form-group">
           <input name="username" type="text" placeholder="Email" className="form-control" value={this.state.email}
@@ -45,19 +53,21 @@ export class Login extends React.Component {
 }
 
 import {login, logout} from 'APP/app/reducers/auth';
+import {loginIssue} from 'APP/app/reducers/loginIssues';
 import {hideModal} from 'APP/app/reducers/loginModal';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
 function mapStateToProps(state){
   return {
-
+    user: state.auth,
+    loginProb: state.loginProb
   }
 }
 
 function mapDispatchToProps(dispatch){
   return {
-    actions: bindActionCreators({login, logout, hideModal}, dispatch)
+    actions: bindActionCreators({login, logout, hideModal, loginIssue}, dispatch)
   }
 }
 
