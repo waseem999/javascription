@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import SubscriptionSchedule from './SubscriptionScheduleClass.jsx';
 import SelectedCoffees from "./selectedcoffees.jsx";
+import AllCoffees from './allcoffees.jsx;
 
 
 export default class extends Component {
@@ -17,6 +18,7 @@ render(){
         <div>
             <SubscriptionSchedule/>
             <SelectedCoffees/>
+            <AllCoffees/>
         </div>
     );
   }
