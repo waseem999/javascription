@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import removeCoffee from '../reducers/removecoffee.jsx';
+import {removeCoffeesCreator} from '../reducers/changeselectedcoffee.jsx';
 
 
 class SelectedCoffees extends Component{
@@ -90,13 +90,13 @@ class SelectedCoffees extends Component{
 
 const mapStateToProps = function(state, ownProps){
     return {
-        coffees: state.auth.selectedCoffees
+        coffees: state.selectedCoffees
     }
 }
 
 const mapDispatchToProps = function(dispatch){
     return {
-        changeSelectedCoffees: bindActionCreators(removeCoffee, dispatch)
+        changeSelectedCoffees: bindActionCreators(removeCoffeesCreator, dispatch)
     }
 }
 
