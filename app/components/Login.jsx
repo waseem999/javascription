@@ -1,5 +1,6 @@
 import React from 'react';
 import {Alert} from 'react-bootstrap';
+import axios from 'axios';
 
 export class Login extends React.Component {
   constructor(props) {
@@ -22,10 +23,28 @@ export class Login extends React.Component {
     })
   }
 
+  googleLogin(event){
+    event.preventDefault();
+    axios.post('api/auth/google/login')
+  }
+
   render(){
     return (
       <form className="signUpLogin" onSubmit={this.loginUser.bind(this)}>
 
+      <div className="buffer-oauth">
+          <p>
+            <a target="_self"
+               href="/api/auth/google/login"
+               className="btn btn-social btn-google">
+            <span className="fa fa-google"></span>
+            <span>Login with Google</span>
+            </a>
+          </p>
+        </div>
+
+        <hr/>
+          
       {this.props.loginProb ? 
         (<Alert bsStyle="warning">
           <strong>Oh no!</strong> Looks like your email or password is incorrect. Try again!

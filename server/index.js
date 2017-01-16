@@ -41,6 +41,12 @@ module.exports = app
   // integrate bootstrap
   .use(express.static(path.join(__dirname,'..','node_modules/bootstrap/dist')))
 
+  // bootstrap-social
+  .use(express.static(path.join(__dirname,'..','node_modules/bootstrap-social')))
+
+  // font-awesome
+  .use(express.static(path.join(__dirname,'..','node_modules/font-awesome')))
+
   // Serve our api
   .use('/api', require('./api'))
 

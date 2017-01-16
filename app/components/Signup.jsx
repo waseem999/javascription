@@ -25,12 +25,12 @@ class Signup extends React.Component {
     e.preventDefault();
     axios.post('/api/users', {
       name: this.state.name,
-      phonenumber: this.state.phoneNumber,
+      phone_number: this.state.phoneNumber,
       email: this.state.email,
       password: this.state.password,
       billing_address: {
-        streetaddress: this.state.streetaddress,
-        unitnumber: this.state.unitnumber,
+        street_address: this.state.streetaddress,
+        unit_number: this.state.unitnumber,
         city: this.state.city,
         state: this.state.state,
         zipcode: this.state.zipcode
@@ -72,6 +72,19 @@ class Signup extends React.Component {
 
     return (
       <form onSubmit={this.createUser.bind(this)} className="signUpLogin">
+
+      <div className="buffer-oauth">
+        <a target="_self"
+           href="/api/auth/google/login/"
+           className="btn btn-social btn-google"
+           id="google-signin">
+        <span className="fa fa-google"></span>
+        <span>Signup with Google</span>
+        </a>
+
+      </div>
+
+      <hr/>
 
       {this.props.signinProb ? 
         (<Alert bsStyle="warning">

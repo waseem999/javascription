@@ -1,5 +1,6 @@
 import axios from 'axios'
-import {loginIssue} from './loginIssues'
+import {loginIssue} from './loginIssues';
+import {hideModal} from './loginModal'
 /* eslint no-use-before-define: 0 */
 
 const reducer = (state=null, action) => {
