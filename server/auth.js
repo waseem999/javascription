@@ -9,6 +9,7 @@ const models = require('APP/db/models/index.js')
 const OAuth = require('APP/db/models/oauth')
 const auth = require('express').Router()
 const {env} = app
+const secrets = require('APP/secrets.json')
 
 /*************************
  * Auth strategies
@@ -55,8 +56,8 @@ OAuth.setupStrategy({
   provider: 'google',
   strategy: require('passport-google-oauth').Strategy,
   config: {
-    consumerKey: env.GOOGLE_CONSUMER_KEY,
-    consumerSecret: env.GOOGLE_CONSUMER_SECRET,
+    consumerKey: secrets.GOOGLE_CONSUMER_KEY,
+    consumerSecret: secrets.GOOGLE_CONSUMER_SECRET,
     callbackURL: `${app.rootUrl}/api/auth/login/google`,
   },
   passport
@@ -88,7 +89,9 @@ passport.deserializeUser(
     debug('will deserialize user.id=%d', id)
     User.findById(id)
       .then(user => {
-        debug('deserialize did ok user.id=%d', user.id)
+        if(user){ 
+          debug('deserialize did ok user.id=%d', user.id)
+        }
         done(null, user)
       })
       .catch(err => {
@@ -128,6 +131,12 @@ auth.post('/:strategy/login', (req, res, next) =>
     successRedirect: '/'
   })(req, res, next)
 )
+
+auth.get('/:strategy/login', (req, res, next) => {
+  passport.authenticate(req.params.strategy, {
+    successRedirect: '/'
+  })(req, res, next)
+})
 
 auth.post('/logout', (req, res) => {
   req.logout()
