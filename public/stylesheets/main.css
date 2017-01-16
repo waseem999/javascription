@@ -1,6 +1,13 @@
 /**
  * RESETS
  */
+html {
+  box-sizing: border-box; }
+
+*, *::before, *::after {
+  position: relative;
+  box-sizing: inherit; }
+
 /**
  * GENERIC
  */

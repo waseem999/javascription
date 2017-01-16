@@ -15,12 +15,13 @@ import HomeContainer from './components/homecontainer.jsx'
 import AccountPage from './components/accountpage.jsx'
 import AddProduct from './components/addproductcomponent.jsx'
 import Subscription from './components/SubscriptionContainer.jsx'
+import EditAccount from './components/EditAccount.jsx';
 
-const ExampleAppComponent = (props) => (
+const ExampleAppComponent = props => (
   <div>
-    <Navbar 
-      modalVisible={props.modalVisible} 
-      showModal={props.actions.showModal} 
+    <Navbar
+      modalVisible={props.modalVisible}
+      showModal={props.actions.showModal}
       hideModal={props.actions.hideModal}
     />
     {props.children}
@@ -28,18 +29,14 @@ const ExampleAppComponent = (props) => (
   </div>
 )
 
-const mapStateToProps = (state) => {
-  return { 
-    user: state.auth,
-    modalVisible: state.modalVisible
-  }
-}
+const mapStateToProps = state => ({
+  user: state.auth,
+  modalVisible: state.modalVisible
+})
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    actions: bindActionCreators({showModal, hideModal}, dispatch)
-  }
-}
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators({showModal, hideModal}, dispatch)
+})
 
 const loadSubscriptionOnEnter = function() {
   store.dispatch(getSubscription());
@@ -47,7 +44,6 @@ const loadSubscriptionOnEnter = function() {
 
 
 const ExampleApp = connect(mapStateToProps, mapDispatchToProps)(ExampleAppComponent)
-
 
 render (
   <Provider store={store}>
@@ -65,7 +61,7 @@ render (
         <Route path="/stories" component={HomeContainer} />
         <Route path="/users" component={AccountPage} />
         <Route path="/coffee" component={AddProduct} />
-
+        <Route path="/account" component={EditAccount} />
       </Route>
     </Router>
   </Provider>,
