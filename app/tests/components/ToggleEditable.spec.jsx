@@ -57,7 +57,6 @@ describe('<ToggleEditable />', () => {
     it('should pass `props.attributes` to TextInput as props', () => {
       const input = wrapper.children('TextInput');
       expect(input).to.have.prop('placeholder', props.attributes.placeholder);
-      expect(input).to.have.prop('value', 'bar');
     });
   });
 
