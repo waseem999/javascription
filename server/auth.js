@@ -9,7 +9,15 @@ const models = require('APP/db/models/index.js')
 const OAuth = require('APP/db/models/oauth')
 const auth = require('express').Router()
 const {env} = app
-const secrets = require('APP/secrets.json')
+let secrets;
+
+try {
+  secrets = require('APP/secrets.json')
+} catch (e) {
+  console.log(e.message);
+  console.log('OAuth will not work without \'APP/secrets.json\'');
+  secrets = {};
+}
 
 /*************************
  * Auth strategies
