@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import removeCoffee from '../reducers/removeselectedcoffee.jsx';
+
+import {removeCoffeesCreator} from '../reducers/changeselectedcoffee.jsx';
+
 
 
 class SelectedCoffees extends Component{
@@ -96,7 +98,7 @@ const mapStateToProps = function(state, ownProps){
 
 const mapDispatchToProps = function(dispatch){
     return {
-        changeSelectedCoffees: bindActionCreators(removeCoffee, dispatch)
+        changeSelectedCoffees: bindActionCreators(removeCoffeesCreator, dispatch)
     }
 }
 
