@@ -52,20 +52,19 @@ export class SubscriptionSchedule extends Component {
       });
   }
 
-  setDays(event) {
-    const selecteddays = this.state.selecteddays;
-    event.preventDefault();
-    axios.put('/api/subscription/days', {
-      selecteddays
-    })
-      .then( () => {}
-    )
-  }
+setDays(event) {
+  const selecteddays = this.state.selecteddays;
+  event.preventDefault();
+  axios.put('/api/subscription/days', {
+    selecteddays
+  })
+    .then( () => {}
+  )
+}
 
-componentWillMount() {
-this.setState(state => {
-  const newState = Object.assign({}, state, this.props.selecteddays);
-  return newState;
+componentWillReceiveProps(nextprops) {
+this.setState({
+    selecteddays : nextprops.selecteddays
   });;
 }
 
@@ -90,9 +89,9 @@ this.setState(state => {
 }
 
 function mapStateToProps(state){
-  const selecteddays = state.subscription.selecteddays;
+  console.log("STATE", state)
   return {
-    selecteddays
+    selecteddays : state.subscription.selecteddays
   }
 }
 

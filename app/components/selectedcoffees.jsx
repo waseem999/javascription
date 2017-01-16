@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import removeCoffee from '../reducers/removecoffee.jsx';
+
+import {removeCoffeesCreator} from '../reducers/changeselectedcoffee.jsx';
+
 
 
 class SelectedCoffees extends Component{
@@ -11,7 +13,7 @@ class SelectedCoffees extends Component{
             selected: [],
         }
 
-        this.handleClick = this.handleClick.bind(this);
+        this.handleCoffeeClick = this.handleCoffeeClick.bind(this);
         this.checkList = this.checkList.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
@@ -56,7 +58,7 @@ class SelectedCoffees extends Component{
         return (
             <div>
                 {
-                    this.props.selectedCoffees.map((coffee) => {
+                    this.props.selectedCoffees && this.props.selectedCoffees.map((coffee) => {
                         return (
                             <span key={`${coffee.name}${coffee.roast}`}>
                                 <button onClick={this.handleClick} name={coffee.name} roast={coffee.roast} coffee={coffee}>
@@ -90,13 +92,13 @@ class SelectedCoffees extends Component{
 
 const mapStateToProps = function(state, ownProps){
     return {
-        coffees: state.auth.selectedCoffees
+        coffees: state.SelectedCoffees
     }
 }
 
 const mapDispatchToProps = function(dispatch){
     return {
-        changeSelectedCoffees: bindActionCreators(removeCoffee, dispatch)
+        changeSelectedCoffees: bindActionCreators(removeCoffeesCreator, dispatch)
     }
 }
 

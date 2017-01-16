@@ -14,7 +14,7 @@ import LoginSignupBox from './components/LoginSignupBox.jsx'
 import HomeContainer from './components/homecontainer.jsx'
 import AccountPage from './components/accountpage.jsx'
 import AddProduct from './components/addproductcomponent.jsx'
-import Subscription from './components/SubscriptionScheduleClass.jsx'
+import Subscription from './components/SubscriptionContainer.jsx'
 
 const ExampleAppComponent = (props) => (
   <div>

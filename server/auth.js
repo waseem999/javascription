@@ -89,9 +89,7 @@ passport.deserializeUser(
     debug('will deserialize user.id=%d', id)
     User.findById(id)
       .then(user => {
-        if(user){ 
-          debug('deserialize did ok user.id=%d', user.id)
-        }
+        user ? debug('deserialize did ok user.id=%d', user.id) : null;
         done(null, user)
       })
       .catch(err => {

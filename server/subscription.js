@@ -17,7 +17,7 @@ router.get('/', mustBeLoggedIn, forbidden('user not found'), (req, res, next) =>
   .catch(next));
 
 router.put('/coffees', mustBeLoggedIn, forbidden('user not found'), (req, res, next) => {
-  Subscription.addProduct(req.query.data)
+  Subscription.update(req.query.data)
     .then(coffees => {
       res.send(coffees);
     })
