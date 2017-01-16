@@ -6,6 +6,7 @@ import {bindActionCreators} from 'redux'
 
 import store from './store'
 import {showModal, hideModal} from './reducers/loginModal'
+import { getSubscription } from './reducers/subscription';
 import Login from './components/Login'
 import WhoAmI from './components/WhoAmI'
 import Navbar from './components/Navbar'
@@ -13,7 +14,7 @@ import LoginSignupBox from './components/LoginSignupBox.jsx'
 import HomeContainer from './components/homecontainer.jsx'
 import AccountPage from './components/accountpage.jsx'
 import AddProduct from './components/addproductcomponent.jsx'
-import Subscription from './components/SubscriptionScheduleClass.jsx'
+import Subscription from './components/SubscriptionContainer.jsx'
 import EditAccount from './components/EditAccount.jsx';
 
 const ExampleAppComponent = props => (
@@ -37,6 +38,11 @@ const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({showModal, hideModal}, dispatch)
 })
 
+const loadSubscriptionOnEnter = function() {
+  store.dispatch(getSubscription());
+}
+
+
 const ExampleApp = connect(mapStateToProps, mapDispatchToProps)(ExampleAppComponent)
 
 render (
@@ -47,7 +53,8 @@ render (
         <IndexRedirect to="/home" />
         <Route path="/home" component={HomeContainer} />
         <Route path="/login" component={Login} />
-        <Route path="/subscriptions" component={Subscription} />
+        <Route path="/subscriptions" component={Subscription} 
+        onEnter={loadSubscriptionOnEnter}/>
         <Route path="/signup" component={HomeContainer} />
         <Route path="/about" component={HomeContainer} />
         <Route path="/contact" component={HomeContainer} />

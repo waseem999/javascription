@@ -28,7 +28,7 @@ export class HomeComponent extends Component{
                     </div>
                 </div>
                     <div>
-                        <Link to='/subscription' >View our subscription plans</Link>
+                        <Link to='/subscriptions' >View our subscription plans</Link>
                     </div>
                     <div>
                         <Link to='/signup' >Sign up for coffee delivery!</Link>

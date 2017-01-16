@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router';
 import ReactModal from 'react-modal';
-import {DropdownButton} from 'react-bootstrap'
+import {DropdownButton, Glyphicon, MenuItem, Clearfix} from 'react-bootstrap'
 
 export class Navbar extends React.Component {
   constructor(props) {
@@ -33,14 +33,20 @@ export class Navbar extends React.Component {
     return (
       <ul className="nav navbar-nav navbar-right">
         <li>
-          <div className="navbar-brand clearfix">
-            <span className="glyphicon glyphicon-user"></span>
+          <div className="user-dropdown">
+            <DropdownButton title={<span className="glyphicon glyphicon-user"></span>} id={`dropdown-basic-1`}>
+              <MenuItem eventKey="1">
+                Account
+              </MenuItem>
+              <MenuItem eventKey="2">
+                Subscription
+              </MenuItem>
+              <MenuItem divider/>
+              <MenuItem eventKey="3" onSelect={this.logoutClick.bind(this)}>
+                Logout
+              </MenuItem>
+            </DropdownButton>
           </div>
-        </li>
-        <li>
-        <button className="navbar-btn btn btn-default"
-          onClick={this.logoutClick.bind(this)}>Logout
-        </button>
         </li>
       </ul>
     );
@@ -62,9 +68,6 @@ export class Navbar extends React.Component {
         <ul className="nav navbar-nav">
           <li>
             <Link to="/" className="active">Home</Link>
-          </li>
-          <li>
-            <Link to="/account" activeClassName="active">Account</Link>
           </li>
           <li>
             <Link to="/contact" activeClassName="active">Contact</Link>
