@@ -14,7 +14,7 @@ export class Navbar extends React.Component {
     const showModal = this.props.showModal ? this.props.showModal.bind(this) : () => {};
     return (
       <ul className="nav navbar-nav navbar-right">
-        <li>
+        <li id="loginBtn">
           <button className="navbar-btn btn btn-default"
             onClick={showModal}
           >Login
@@ -32,6 +32,9 @@ export class Navbar extends React.Component {
 
     return (
       <ul className="nav navbar-nav navbar-right">
+        <li>
+          <div id="welcomeName">Welcome, {this.props.user.name}</div>
+        </li>
         <li>
           <div className="user-dropdown">
             <DropdownButton title={<span className="glyphicon glyphicon-user"></span>} id={`dropdown-basic-1`}>
