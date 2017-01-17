@@ -96,8 +96,10 @@ export class EditAccount extends Component {
   }
 }
 
-function mapStateToProps() {
-  return {};
+function mapStateToProps(state) {
+  return {
+    user: state.auth
+  };
 }
 
 function mapDispatchToProps() {
