@@ -14,7 +14,7 @@ export default class extends Component {
   
 render(){
     return (
-        <div>
+        <div style={{backgroundColor: '#c2c4c6'}}>
             <SubscriptionSchedule/>
             <SelectedCoffees/>
             <AllCoffees/>

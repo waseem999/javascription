@@ -20,7 +20,18 @@ class SelectedCoffees extends Component{
         }
         this.selectedCoffeeStyle = {
             textAlign: 'center',
-            margin: '10px'
+            margin: '10px',
+            backgroundColor: 'grey'
+        }
+        this.coffeeBlockStyle = {
+            display: 'inline-block',
+            textAlign: 'center',
+            width: 'auto',
+            backgroundColor: '#c2c4c6',
+            padding: '3px',
+            border: '1px solid black',
+            borderRadius: '3px',
+            margin: '2px'
         }
         this.handleCoffeeClick = this.handleCoffeeClick.bind(this);
         this.checkList = this.checkList.bind(this);
@@ -119,8 +130,12 @@ class SelectedCoffees extends Component{
                     !!this.state.selected.length ?
                     this.state.selected.map((coffee) => {
                         return (
-                            <span key={`${coffee.name}${coffee.roast}`}>
-                                <button onClick={this.handleCoffeeSelect} name={coffee.name} data-roast={coffee.roast} data-coffee={coffee}>
+                            <div key={`${coffee.name}${coffee.roast}`} style={{width: '16em', display: 'inline-block'}}>
+                                <button onClick={this.handleCoffeeSelect} 
+                                    name={coffee.name} 
+                                    data-roast={coffee.roast} 
+                                    data-coffee={coffee}
+                                    style={this.coffeeBlockStyle}>
                                     <div style={
                                         !!this.state.unSelected.includes(coffee.name) ?
                                         {backgroundColor: 'red'}
@@ -128,18 +143,21 @@ class SelectedCoffees extends Component{
                                         {backgroundColor: ''}
                                     }>
                                         <div>
-                                            <img style={this.coffeePicStyle} src={coffee.photo} alt="Java"/>
-                                        </div>
-                                        <div>
-                                            <span>{coffee.name}</span>
-                                        </div>
-                                        <div>
-                                            <span>Roast: </span>
-                                            <span>{coffee.roast.toUpperCase()}</span>
+                                            <div>
+                                                <img style={this.coffeePicStyle} src={coffee.photo} alt="Java"/>
+                                            </div>
+                                            <div>
+                                                <span >{coffee.name}</span>
+                                            </div>
+                                            <div>
+                                                <hr style={{margin: '2px 0px 2px 0px'}}/>
+                                                <span>Roast: </span>
+                                                <span>{coffee.roast.toUpperCase()}</span>
+                                            </div>
                                         </div>
                                     </div>
                                 </button>
-                            </span>
+                            </div>
                         )
                     })
                     :
@@ -147,7 +165,7 @@ class SelectedCoffees extends Component{
                 }
                 { !!this.state.selected.length ? 
                     <div>
-                        <button onClick={this.handleSubmit} >Remove Selections</button>
+                        <button className="btn btn-warning" onClick={this.handleSubmit} >Remove Selections</button>
                     </div>
                     :
                     null

@@ -21,10 +21,19 @@ class SelectedCoffees extends Component{
         }
         this.coffeeBlockStyle = {
             display: 'inline-block',
-            textAlign: 'center'
+            textAlign: 'center',
+            width: '16em',
+            backgroundColor: '#c2c4c6',
+            padding: '3px',
+            border: '1px solid black',
+            borderRadius: '3px',
+            margin: '2px',
         }
         this.tierStyle = {
             textAlign: 'center'
+        }
+        this.wholeStyle = {
+            backgroundColor: 'grey'
         }
 
         this.handleCoffeeClick = this.handleCoffeeClick.bind(this);
@@ -99,8 +108,9 @@ class SelectedCoffees extends Component{
 
     render(props){
         return (
-            <div>
-                <div>
+            <div style={this.wholeStyle}>
+                <div style={{textAlign: 'center'}}>
+                    <h4 style={{textDecoration: 'underline'}}>Filter Available Coffees</h4>
                     <select name="filter" id="filter" value={this.state.filter} onChange={this.filterChange}>
                         <option value="all">All</option>
                         <option value="1">Tier 1</option>
@@ -118,11 +128,12 @@ class SelectedCoffees extends Component{
                                     <div >
                                         <img style={this.coffeePicStyle} src={`${coffee.photo}`} alt="Tier 1 coffee"/>
                                     </div>
-                                    <div>
+                                    <div style={{width: 'auto'}}>
                                         <span >{coffee.name}</span>
                                     </div>
                                     <div>
-                                        <button name={coffee.name} data-tier={coffee.tier_id} onClick={this.handleCoffeeClick}>Add to Subscription</button>
+                                        <hr style={{margin: '2px 0px 2px 0px'}}/>
+                                        <button className="btn btn-success" name={coffee.name} data-tier={coffee.tier_id} onClick={this.handleCoffeeClick}>Add to Subscription</button>
                                     </div>
                                 </div>
                             )
@@ -146,7 +157,8 @@ class SelectedCoffees extends Component{
                                         <span>{coffee.name}</span>
                                     </div>
                                     <div>
-                                        <button name={coffee.name} data-tier={coffee.tier_id} onClick={this.handleCoffeeClick}>Add to Subscription</button>
+                                        <hr style={{margin: '2px 0px 2px 0px'}}/>
+                                        <button className="btn btn-success" name={coffee.name} data-tier={coffee.tier_id} onClick={this.handleCoffeeClick}>Add to Subscription</button>
                                     </div>
                                 </span>
                             )
@@ -170,7 +182,8 @@ class SelectedCoffees extends Component{
                                         <span>{coffee.name}</span>
                                     </div>
                                     <div>
-                                        <button name={coffee.name} data-tier={coffee.tier_id} onClick={this.handleCoffeeClick}>Add to Subscription</button>
+                                        <hr style={{margin: '2px 0px 2px 0px'}}/>
+                                        <button className="btn btn-success" name={coffee.name} data-tier={coffee.tier_id} onClick={this.handleCoffeeClick}>Add to Subscription</button>
                                     </div>
                                 </span>
                             )
