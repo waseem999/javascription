@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {addCoffeesCreator} from '../reducers/changeselectedcoffee.jsx';
+import axios from 'axios';
 
 
 class SelectedCoffees extends Component{
@@ -15,8 +16,18 @@ class SelectedCoffees extends Component{
             },
             filter: 'all'
         }
+        this.coffeePicStyle = {
+            width: '15em'
+        }
+        this.coffeeBlockStyle = {
+            display: 'inline-block',
+            textAlign: 'center'
+        }
+        this.tierStyle = {
+            textAlign: 'center'
+        }
 
-        this.handleCoffeeClick = this.handleClick.bind(this);
+        this.handleCoffeeClick = this.handleCoffeeClick.bind(this);
         this.reconcileCoffees = this.reconcileCoffees.bind(this);
         this.parseCoffees = this.parseCoffees.bind(this);
         this.findCoffee = this.findCoffee.bind(this);
@@ -44,7 +55,7 @@ class SelectedCoffees extends Component{
             tier3:[],
         }
         allCoffees.forEach(function(coffee){
-            coffees[`tier${coffee.tier}`].push(coffee);
+            coffees[`tier${coffee.tier_id}`].push(coffee);
         });
         return coffees;
     }
@@ -60,16 +71,16 @@ class SelectedCoffees extends Component{
     }
 
     findCoffee(name, tier){
-        let selectedTier = 'tier' + tier
-        for(let i=0; i<this.state[selectedTier].length;i++){
-            if(this.state[selectedTier].name === name){
-                return this.state[selectedTier][i]
+        let selectedTier = `this.state.allcoffees.tier${tier}`
+        for(let i=0; i<selectedTier.length;i++){
+            if(selectedTier[i].name === name){
+                return selectedTier[i]
             }
         }
     }
 
     handleCoffeeClick(e){
-        let selectedCoffee = this.findCoffee(e.name, e.tier);
+        let selectedCoffee = this.findCoffee(e.name, e.target.dataset.tier);
         axios({method: 'put', url:'/api/subscription/coffees', data:{
             coffees: selectedCoffee
         }})
@@ -98,22 +109,22 @@ class SelectedCoffees extends Component{
                     </select>
                 </div>
                 {   this.state.filter === 'all' || this.state.filter === '1' ?
-                    <div>
-                    <h3>Tier 1 Coffees. $1/cup $15/lb</h3>
+                    <div style={this.tierStyle}>
+                    <h3 style={{textAlign: 'center', textDecoration: 'underline'}}>Tier 1 Coffees. $1/cup $15/lb</h3>
                     {
-                        this.state.allCoffees.tier1.map(function(coffee){
+                        this.state.allCoffees.tier1.map(coffee =>{
                             return (
-                                <span key={coffee.name}>
-                                    <div>
-                                        <img src={`${coffee.photo}`} alt="Tier 1 coffee"/>
+                                <div style={this.coffeeBlockStyle} key={coffee.name}>
+                                    <div >
+                                        <img style={this.coffeePicStyle} src={`${coffee.photo}`} alt="Tier 1 coffee"/>
                                     </div>
                                     <div>
-                                        <span>{coffee.name}</span>
+                                        <span >{coffee.name}</span>
                                     </div>
                                     <div>
-                                        <button name={coffee.name} tier={coffee.tier} onClick={this.handleCoffeeClick}>Add to Subscription</button>
+                                        <button name={coffee.name} data-tier={coffee.tier} onClick={this.handleCoffeeClick}>Add to Subscription</button>
                                     </div>
-                                </span>
+                                </div>
                             )
                         })
                     }
@@ -122,20 +133,20 @@ class SelectedCoffees extends Component{
                     null
                 }
                 {   this.state.filter === 'all' || this.state.filter === '2' ?
-                    <div>
-                        <h3>Tier 2 Coffees. $2.50/cup $25/lb</h3>
+                    <div style={this.tierStyle}>
+                        <h3 style={{textAlign: 'center', textDecoration: 'underline'}}>Tier 2 Coffees. $2.50/cup $25/lb</h3>
                     {
-                        this.state.allCoffees.tier2.map(function(coffee){
+                        this.state.allCoffees.tier2.map(coffee =>{
                             return (
-                                <span key={coffee.name}>
+                                <span style={this.coffeeBlockStyle} key={coffee.name}>
                                     <div>
-                                        <img src={`${coffee.photo}`} alt="Tier 2 coffee"/>
+                                        <img style={this.coffeePicStyle} src={`${coffee.photo}`} alt="Tier 2 coffee"/>
                                     </div>
                                     <div>
                                         <span>{coffee.name}</span>
                                     </div>
                                     <div>
-                                        <button name={coffee.name} tier={coffee.tier} onClick={this.handleCoffeeClick}>Add to Subscription</button>
+                                        <button name={coffee.name} data-tier={coffee.tier} onClick={this.handleCoffeeClick}>Add to Subscription</button>
                                     </div>
                                 </span>
                             )
@@ -146,20 +157,20 @@ class SelectedCoffees extends Component{
                     null
                 }
                 {   this.state.filter === 'all' || this.state.filter === '3' ?
-                    <div>
-                        <h3>Tier 3 Coffees. $4/cup $35/lb</h3>
+                    <div style={this.tierStyle}> 
+                        <h3 style={{textAlign: 'center', textDecoration: 'underline'}}>Tier 3 Coffees. $4/cup $35/lb</h3>
                     {
-                        this.state.allCoffees.tier3.map(function(coffee){
+                        this.state.allCoffees.tier3.map(coffee =>{
                             return (
-                                <span key={coffee.name}>
+                                <span style={this.coffeeBlockStyle} key={coffee.name}>
                                     <div>
-                                        <img src={`${coffee.photo}`} alt="Tier 3 coffee"/>
+                                        <img style={this.coffeePicStyle} src={`${coffee.photo}`} alt="Tier 3 coffee"/>
                                     </div>
                                     <div>
                                         <span>{coffee.name}</span>
                                     </div>
                                     <div>
-                                        <button name={coffee.name} tier={coffee.tier} onClick={this.handleCoffeeClick}>Add to Subscription</button>
+                                        <button name={coffee.name} data-tier={coffee.tier} onClick={this.handleCoffeeClick}>Add to Subscription</button>
                                     </div>
                                 </span>
                             )
