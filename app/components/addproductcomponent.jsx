@@ -17,7 +17,7 @@ export class AddProduct extends Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
-  handleSubmit(event){
+  handleSubmit(){
     axios({method: 'post', url: '/api/coffee/new', data:{
       name: this.state.name,
       roast: this.state.roast,

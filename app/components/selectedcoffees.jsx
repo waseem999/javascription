@@ -121,7 +121,7 @@ class SelectedCoffees extends Component{
         return price;
     }
 
-    render(props){
+    render(){
         return (
             <div style={this.selectedCoffeeStyle}>
                 <h3 style={{textDecoration: 'underline'}}>Your Selected Coffees</h3>
@@ -137,7 +137,7 @@ class SelectedCoffees extends Component{
                                     data-coffee={coffee}
                                     style={this.coffeeBlockStyle}>
                                     <div style={
-                                        !!this.state.unSelected.includes(coffee.name) ?
+                                        this.state.unSelected.includes(coffee.name) ?
                                         {backgroundColor: 'red'}
                                         :
                                         {backgroundColor: ''}
@@ -179,7 +179,7 @@ class SelectedCoffees extends Component{
 const mapStateToProps = function(state, ownProps){
     return {
         selectedCoffees: state.selectedCoffees,
-        frequency: state.subscription.selecteddays
+        frequency: state.subscription.selectedDays
     }
 }
 

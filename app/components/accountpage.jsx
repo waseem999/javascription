@@ -14,11 +14,10 @@ class AccountPage extends Component{
         }
     }
 
-    componentDidMount(props){
-        console.log("hellloooooo", this.props)
+    componentDidMount(){
     }
 
-    render(props){
+    render(){
         return (
             <div>
             {

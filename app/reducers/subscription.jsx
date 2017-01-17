@@ -14,15 +14,15 @@ export const addScheduleFrontEnd = schedule => ({
 
 
 const initialState = { 
-    selecteddays: {}
+    selectedDays: {}
   };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_SCHEDULE: 
-       return Object.assign({}, state, { selecteddays: action.schedule.frequencyObject });
+       return Object.assign({}, state, { selectedDays: action.schedule.frequencyObject });
     case ADD_SCHEDULE_FRONT_END: 
-       return Object.assign({}, state, { selecteddays: action.schedule });
+       return Object.assign({}, state, { selectedDays: action.schedule });
 
     default: 
        return state;
