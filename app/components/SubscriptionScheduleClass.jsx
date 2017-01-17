@@ -89,7 +89,6 @@ this.setState({
 }
 
 function mapStateToProps(state){
-  console.log("STATE", state)
   return {
     selecteddays : state.subscription.selecteddays
   }

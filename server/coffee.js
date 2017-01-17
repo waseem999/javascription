@@ -15,13 +15,6 @@ router.post('/new', function(req, res, next) {
     .catch(next);
 })
 
-router.get('/:coffeeID', function(req, res, next) {
-  models.Product.findOne({where: {id: req.params.coffeeID}})
-    .then(coffee => {
-      res.send(coffee);
-    })
-    .catch(next);
-})
 
 router.get('/all', function(req, res, next) {
   models.Product.findAll()
@@ -43,6 +36,14 @@ router.get('/all/:userID', function(req, res, next) {
     })
     .catch(next);
 })
+
+// router.get('/:coffeeID', function(req, res, next) {
+//   models.Product.findOne({where: {id: req.params.coffeeID}})
+//     .then(coffee => {
+//       res.send(coffee);
+//     })
+//     .catch(next);
+// })
 
 router.get('/:tier', function(req, res, next) {
   models.Product.findAll({

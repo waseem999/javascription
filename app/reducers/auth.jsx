@@ -1,6 +1,8 @@
 import axios from 'axios'
 import {loginIssue} from './loginIssues';
+import {getUsersCoffees} from 'APP/app/reducers/changeselectedcoffee.jsx';
 import {hideModal} from './loginModal'
+
 /* eslint no-use-before-define: 0 */
 
 const reducer = (state=null, action) => {
@@ -35,6 +37,7 @@ export const whoami = () =>
       .then(response => {
         const user = response.data
         dispatch(authenticated(user))
+        dispatch(getUsersCoffees(user.subscription_id))
       })
       .catch(failed => dispatch(authenticated(null)))
 

@@ -8,7 +8,8 @@ api
   .use('/auth', require('./auth'))
   .use('/users', require('./users'))
   .use('/subscription', require('./subscription'))
- 
+  .use('/coffee', require('./coffee'))
+
 
 
   // .use('/coffee', require('./coffee'))

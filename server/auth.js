@@ -2,7 +2,8 @@
 
 const app = require('APP')
 const debug = require('debug')(`${app.name}:auth`)
-const passport = require('passport')
+const passport = require('passport');
+const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 
 const User = require('APP/db/models/index.js').User
 const models = require('APP/db/models/index.js')
@@ -12,80 +13,12 @@ const {env} = app
 let secrets;
 
 try {
-  secrets = require('APP/secrets.json')
+  secrets = require('APP/secrets.js')
 } catch (e) {
   console.log(e.message);
-  console.log('OAuth will not work without \'APP/secrets.json\'');
+  console.log('OAuth will not work without \'APP/secrets.js\'');
   secrets = {};
 }
-
-/*************************
- * Auth strategies
- *
- * The OAuth model knows how to configure Passport middleware.
- * To enable an auth strategy, ensure that the appropriate
- * environment variables are set.
- *
- * You can do it on the command line:
- *
- *   FACEBOOK_CLIENT_ID=abcd FACEBOOK_CLIENT_SECRET=1234 npm start
- *
- * Or, better, you can create a ~/.$your_app_name.env.json file in
- * your home directory, and set them in there:
- *
- * {
- *   FACEBOOK_CLIENT_ID: 'abcd',
- *   FACEBOOK_CLIENT_SECRET: '1234',
- * }
- *
- * Concentrating your secrets this way will make it less likely that you
- * accidentally push them to Github, for example.
- *
- * When you deploy to production, you'll need to set up these environment
- * variables with your hosting provider.
- **/
-
-// Facebook needs the FACEBOOK_CLIENT_ID and FACEBOOK_CLIENT_SECRET
-// environment variables.
-OAuth.setupStrategy({
-  provider: 'facebook',
-  strategy: require('passport-facebook').Strategy,
-  config: {
-    clientID: env.FACEBOOK_CLIENT_ID,
-    clientSecret: env.FACEBOOK_CLIENT_SECRET,
-    callbackURL: `${app.rootUrl}/api/auth/login/facebook`,
-  },
-  passport
-})
-
-// Google needs the GOOGLE_CONSUMER_SECRET AND GOOGLE_CONSUMER_KEY
-// environment variables.
-if(secrets){
-OAuth.setupStrategy({
-  provider: 'google',
-  strategy: require('passport-google-oauth').Strategy,
-  config: {
-    consumerKey: secrets.GOOGLE_CONSUMER_KEY,
-    consumerSecret: secrets.GOOGLE_CONSUMER_SECRET,
-    callbackURL: `${app.rootUrl}/api/auth/login/google`,
-  },
-  passport
-})
-}
-// Github needs the GITHUB_CLIENT_ID AND GITHUB_CLIENT_SECRET
-// environment variables.
-OAuth.setupStrategy({
-  provider: 'github',
-  strategy: require('passport-github2').Strategy,
-  config: {
-    clientID: env.GITHUB_CLIENT_ID,
-    clientSecrets: env.GITHUB_CLIENT_SECRET,
-    callbackURL: `${app.rootUrl}/api/auth/login/github`,
-  },
-  passport
-})
-
-// Other passport configuration:
 
 passport.serializeUser((user, done) => {
   debug('will serialize user.id=%d', user.id)
@@ -107,6 +40,43 @@ passport.deserializeUser(
       })
   }
 )
+
+// Google authentication and login
+auth.get('/google', passport.authenticate('google', { scope: ['profile', 'email']}));
+
+passport.use(
+  new GoogleStrategy({
+    clientID: secrets.GOOGLE_CONSUMER_KEY,
+    clientSecret: secrets.GOOGLE_CONSUMER_SECRET,
+    callbackURL: `${app.baseUrl}/api/auth/login/google`
+  },
+  function (token, refreshToken, profile, done) {
+    var info = {
+      name: profile.displayName,
+      email: profile.emails[0].value
+    };
+    User.findOrCreate({
+      where: {googleId: profile.id},
+      defaults: info
+    })
+    .spread(function (user) {
+      done(null, user);
+    })
+    .catch(done);
+  })
+)
+
+// handle the callback after Google has authenticated the user
+auth.get('/login/google',
+  passport.authenticate('google', {
+    successRedirect: '/',
+    failureRedirect: '/login' 
+  })
+);
+
+
+// Other passport configuration:
+
 
 passport.use(new (require('passport-local').Strategy) (
   (email, password, done) => {
@@ -131,7 +101,9 @@ passport.use(new (require('passport-local').Strategy) (
   }
 ))
 
-auth.get('/whoami', (req, res) => res.send(req.user))
+auth.get('/whoami', (req, res) => {
+  res.send(req.user)
+})
 
 auth.post('/:strategy/login', (req, res, next) =>
   passport.authenticate(req.params.strategy, {
