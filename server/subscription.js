@@ -6,7 +6,8 @@ const User = models.User;
 const bodyParser = require('body-parser');
 const {mustBeLoggedIn, forbidden,} = require('./auth.filters')
 
-router.get('/', mustBeLoggedIn, forbidden('user not found'), (req, res, next) => Subscription.findOne({
+router.get('/', mustBeLoggedIn, forbidden('user not found'), (req, res, next) => {
+  Subscription.findOne({
   where: {
     userId: req.session.userId
   }
@@ -14,10 +15,22 @@ router.get('/', mustBeLoggedIn, forbidden('user not found'), (req, res, next) =>
   .then(subscription => {
     res.json(subscription)
   })
-  .catch(next));
+  .catch(next)
+});
 
-router.put('/coffees', mustBeLoggedIn, forbidden('user not found'), (req, res, next) => {
-  Subscription.update(req.query.data)
+router.get('/selectedCoffees/:subID', function(req, res, next){
+  models.Subscription.findAll({where: {id: req.params.subID}, 
+    include: [{model: models.Product}]})
+  .then(coffees => {
+    res.send(coffees)
+  })
+  .catch(err => next(err))
+})
+
+
+router.put('/coffees', mustBeLoggedIn, (req, res, next) => {
+  console.log(req.query.data)
+  Subscription.update({where: {id: req.user.id}, include:[{model: models.product}]})
     .then(coffees => {
       res.send(coffees);
     })
@@ -25,12 +38,14 @@ router.put('/coffees', mustBeLoggedIn, forbidden('user not found'), (req, res, n
 });
 
 router.use('/days', (req, res, next) =>{
-req.user.getSubscription()
+  if(req.user){
+    req.user.getSubscription()
     .then(subscription => {
       req.subscription = subscription;
       next();
     })
     .catch(next);
+  }
 })
 
 router.put('/days', (req, res, next) => {
