@@ -20,7 +20,6 @@ try {
   secrets = {};
 }
 
-
 passport.serializeUser((user, done) => {
   debug('will serialize user.id=%d', user.id)
   done(null, user.id)

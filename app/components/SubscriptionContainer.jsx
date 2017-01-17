@@ -1,6 +1,5 @@
 
 import React, { Component } from 'react';
-import axios from 'axios';
 import SubscriptionSchedule from './SubscriptionScheduleClass.jsx';
 import SelectedCoffees from "./selectedcoffees.jsx";
 import AllCoffees from './allcoffees.jsx';
