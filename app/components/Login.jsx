@@ -35,7 +35,7 @@ export class Login extends React.Component {
       <div className="buffer-oauth">
           <p>
             <a target="_self"
-               href="/api/auth/google/login"
+               href="/api/auth/google"
                className="btn btn-social btn-google">
             <span className="fa fa-google"></span>
             <span>Login with Google</span>

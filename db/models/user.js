@@ -14,12 +14,14 @@ const User = db.define('users', {
     }
   },
   phone_number: {
-    type: Sequelize.STRING,
-    allowNull: false
+    type: Sequelize.STRING
   },
   account_type: {
     type: Sequelize.ENUM('customer', 'administrator'),
     defaultValue: 'customer'
+  },
+  googleId: {
+    type: Sequelize.STRING
   },
 
   // We support oauth, so users may or may not have passwords.
