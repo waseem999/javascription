@@ -68,7 +68,7 @@ class Signup extends React.Component {
 
   render(){
     return (
-      <form onSubmit={this.createUser.bind(this)} className="signUpLogin">
+      <form onSubmit={this.createUser.bind(this)} className="sign-up-login">
 
       <div className="buffer-oauth">
         <a target="_self"
