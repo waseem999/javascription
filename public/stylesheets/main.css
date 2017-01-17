@@ -57,3 +57,7 @@ html {
 
 #loginBtn {
   padding-right: 10px; }
+
+.body-rest {
+  width: calc(100% - 22px);
+  margin: 0 auto; }

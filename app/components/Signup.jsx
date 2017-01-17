@@ -1,5 +1,4 @@
 import React from 'react';
-import { browserHistory } from 'react-router';
 import axios from 'axios';
 import {FormGroup, FormControl, HelpBlock, Alert} from 'react-bootstrap'
 
@@ -68,8 +67,6 @@ class Signup extends React.Component {
   }
 
   render(){
-    const login = this.props.actions.login;
-
     return (
       <form onSubmit={this.createUser.bind(this)} className="signUpLogin">
 

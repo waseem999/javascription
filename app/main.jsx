@@ -28,8 +28,10 @@ const ExampleAppComponent = props => (
       showModal={props.actions.showModal}
       hideModal={props.actions.hideModal}
     />
+    <div className="body-rest">
     {props.children}
     {props.modalVisible ? <LoginSignupBox/> : null}
+    </div>
   </div>
 )
 

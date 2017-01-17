@@ -14,18 +14,12 @@ export class Login extends React.Component {
   loginUser(e){
     e.preventDefault();
     this.props.actions.login(this.state.email, this.state.password)
-    this.props.actions.hideModal()
   }
 
   updateInput(field, event) {
     this.setState({
       [field]: event.target.value
     })
-  }
-
-  googleLogin(event){
-    event.preventDefault();
-    axios.post('api/auth/google/login')
   }
 
   render(){
@@ -71,7 +65,7 @@ export class Login extends React.Component {
   }
 }
 
-import {login, logout} from 'APP/app/reducers/auth';
+import {login, logout, whoami} from 'APP/app/reducers/auth';
 import {loginIssue} from 'APP/app/reducers/loginIssues';
 import {hideModal} from 'APP/app/reducers/loginModal';
 import {connect} from 'react-redux';
@@ -86,7 +80,7 @@ function mapStateToProps(state){
 
 function mapDispatchToProps(dispatch){
   return {
-    actions: bindActionCreators({login, logout, hideModal, loginIssue}, dispatch)
+    actions: bindActionCreators({login, logout, hideModal, loginIssue, whoami}, dispatch)
   }
 }
 
