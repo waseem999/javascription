@@ -2,7 +2,10 @@ import React from 'react';
 
 export default function (props) {
 return (
-        <div>
+        <div className="col-lg-12 col-lg-12" style={{textAlign : "center", backgroundColor : "grey"}}>
+            <div>
+            <h1>Checkout</h1>
+          </div>
         <h3>Enter Credit Card Number</h3>
             <form onSubmit={props.handleSubmit} id="payment-form">
                 <span className="payment-errors"></span>
@@ -37,7 +40,7 @@ return (
                 </label>
             </div>
 
-            <input type="submit" className="submit" value="Submit Payment" className="btn-sm btn-danger" />
+            <input type="submit" className="submit" value="Submit Payment" className="btn-sm btn-danger" style={{margin : "2em"}}/>
             </form>
         </div>
 )

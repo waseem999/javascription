@@ -1,19 +1,21 @@
-// // 'use strict'
+// 'use strict'
 
-// const express = require('express');
-// const router = express.Router();
+const express = require('express');
+const router = express.Router();
 
-// var stripe = require("stripe")("pk_test_zhNcE7UnOOvuysKTbZ1rcU8A");
+var stripe = require("stripe")("pk_test_zhNcE7UnOOvuysKTbZ1rcU8A");
 
-// router.post('/', function(req, res, next) {
-// let token = req.body.stripeToken; 
-// console.log("TOKEN???", token)
-// var charge = stripe.charges.create({
-//   amount: 1000,
-//   currency: "usd",
-//   description: "Example charge",
-//   source: token,
-// }, function(err, charge) {
-//   // asynchronously called
-// });
-// })
+router.post('/', function(req, res, next) {
+let token = req.body.card.id; 
+console.log("TOKEN???", token)
+var charge = stripe.charges.create({
+  amount: 1000,
+  currency: "usd",
+  description: "Example charge",
+  source: token,
+}, function(err, charge) {
+   console.log("CHARGE?", charge)
+});
+})
+
+module.exports = router;

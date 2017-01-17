@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import StripeComponent from './stripe.jsx';
+import axios from 'axios';
 
 export default class extends Component {
   constructor(props) {
@@ -13,7 +14,8 @@ export default class extends Component {
 handleSubmit(e){
   e.preventDefault();
     Stripe.card.createToken(e.target, function (status, response){
-      axios.post('/')
+      response.object === "token" ? alert("Payment Received!") : alert("That's not a real credit card!")
+      axios.post('/api/payments', response)
     });
   return false;
 }
