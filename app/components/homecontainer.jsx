@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux'
 import {Link} from 'react-router';
+import {showModal} from 'APP/app/reducers/loginModal';
 
 export class HomeComponent extends Component{
   constructor(props){
@@ -14,6 +16,11 @@ export class HomeComponent extends Component{
 
   randJoke(){
     return this.state.jokes[Math.floor((Math.random()*1000) % this.state.jokes.length)]
+  }
+
+  signUpClick(e){
+    e.preventDefault()
+    this.props.actions.showModal()
   }
 
   render(props){
@@ -31,7 +38,7 @@ export class HomeComponent extends Component{
                         <Link to='/subscriptions' >View our subscription plans</Link>
                     </div>
                     <div>
-                        <Link to='/signup' >Sign up for coffee delivery!</Link>
+                        <a onClick={this.signUpClick.bind(this)}>Sign up for coffee delivery!</a>
                     </div>
                     <div>
                         <Link to='/success' >Hear what our happy customers have to say</Link>
@@ -52,7 +59,7 @@ const mapStateToProps = function(state, ownProps){
 
 const mapDispatchToProps = function(dispatch){
   return {
-
+    actions: bindActionCreators({showModal}, dispatch)
   }
 }
 
