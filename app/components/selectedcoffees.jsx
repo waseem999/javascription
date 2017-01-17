@@ -59,10 +59,10 @@ class SelectedCoffees extends Component{
 
     handleSubmit(){
         let newSelected = this.reconcileLists();
-        Promise.all([axios({method: 'put', url:'/api/subscription/coffees', data:{
+        axios({method: 'post', url:`/api/subscription/coffees`, data:{
             coffees: newSelected
-        }}), newSelected])
-        .then((newList, newSelected) =>{
+        }})
+        .then(subs =>{
             this.props.changeSelectedCoffees(newSelected);
         })
         .catch(err => {
@@ -107,7 +107,6 @@ class SelectedCoffees extends Component{
             }
         }
         price = price * freq * 4;
-        console.log(price);
         return price;
     }
 
@@ -117,7 +116,7 @@ class SelectedCoffees extends Component{
                 <h3 style={{textDecoration: 'underline'}}>Your Selected Coffees</h3>
                 <h4>${this.getPrice()} per month (4 weeks)</h4>
                 {
-                    this.state.selected.length &&
+                    !!this.state.selected.length ?
                     this.state.selected.map((coffee) => {
                         return (
                             <span key={`${coffee.name}${coffee.roast}`}>
@@ -143,6 +142,8 @@ class SelectedCoffees extends Component{
                             </span>
                         )
                     })
+                    :
+                    <span>Select some delicious coffees!</span>
                 }
                 { !!this.state.selected.length ? 
                     <div>
