@@ -20,6 +20,7 @@ import Subscription from './components/SubscriptionContainer.jsx';
 import {loadAllCoffees} from './reducers/allcoffeescreator.jsx';
 import EditAccount from './components/EditAccount.jsx';
 import Payments from './components/PaymentsContainer.jsx';
+import SingleCoffee from './components/SingleCoffee.jsx'
 
 
 const ExampleAppComponent = props => (
@@ -72,10 +73,7 @@ render (
         <Route path="/subscriptions" component={Subscription} 
         onEnter={loadSubscriptionOnEnter}/>
         <Route path="/payments" component={Payments} />
-
-        <Route path="/signup" component={HomeContainer} />
-        <Route path="/about" component={HomeContainer} />
-        <Route path="/contact" component={HomeContainer} />
+        <Route path="/onecoffee" component={SingleCoffee} />
         <Route path="/stories" component={HomeContainer} />
         <Route path="/users" component={AccountPage} />
         <Route path="/coffee" component={AddProduct} />

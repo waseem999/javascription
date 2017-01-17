@@ -1,6 +1,5 @@
 import React from 'react';
 import {Alert} from 'react-bootstrap';
-import axios from 'axios';
 
 export class Login extends React.Component {
   constructor(props) {
