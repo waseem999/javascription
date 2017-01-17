@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import axios from 'axios';
 import Days from './Days.jsx';
+import { addSchedule, addScheduleFrontEnd } from 'APP/app/reducers/subscription.jsx';
+import store from '../store.jsx'
 
 export class SubscriptionSchedule extends Component {
   constructor(props){
@@ -54,11 +56,12 @@ export class SubscriptionSchedule extends Component {
 
 setDays(event) {
   const selecteddays = this.state.selecteddays;
-  event.preventDefault();
   axios.put('/api/subscription/days', {
     selecteddays
   })
-    .then( () => {}
+    .then( () => {
+      store.dispatch(addScheduleFrontEnd(selecteddays));
+    }
   )
 }
 
