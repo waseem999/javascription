@@ -51,6 +51,7 @@ export class HomeComponent extends Component{
 const mapStateToProps = function(state, ownProps){
   return {
     state: state
+    
   }
 }
 
