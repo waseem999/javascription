@@ -60,6 +60,7 @@ OAuth.setupStrategy({
 
 // Google needs the GOOGLE_CONSUMER_SECRET AND GOOGLE_CONSUMER_KEY
 // environment variables.
+if(secrets){
 OAuth.setupStrategy({
   provider: 'google',
   strategy: require('passport-google-oauth').Strategy,
@@ -70,7 +71,7 @@ OAuth.setupStrategy({
   },
   passport
 })
-
+}
 // Github needs the GITHUB_CLIENT_ID AND GITHUB_CLIENT_SECRET
 // environment variables.
 OAuth.setupStrategy({

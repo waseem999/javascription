@@ -16,6 +16,7 @@ import AccountPage from './components/accountpage.jsx'
 import AddProduct from './components/addproductcomponent.jsx'
 import Subscription from './components/SubscriptionContainer.jsx'
 import EditAccount from './components/EditAccount.jsx';
+import Payments from './components/PaymentsContainer.jsx';
 
 const ExampleAppComponent = props => (
   <div>
@@ -55,6 +56,7 @@ render (
         <Route path="/login" component={Login} />
         <Route path="/subscriptions" component={Subscription} 
         onEnter={loadSubscriptionOnEnter}/>
+        <Route path="/payments" component={Payments} />
         <Route path="/signup" component={HomeContainer} />
         <Route path="/about" component={HomeContainer} />
         <Route path="/contact" component={HomeContainer} />

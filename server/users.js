@@ -3,7 +3,6 @@
 
 const express = require('express');
 const router = express.Router();
-
 const models = require('APP/db/models');
 
 const {mustBeLoggedIn, forbidden,} = require('./auth.filters')
