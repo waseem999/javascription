@@ -1,7 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router';
-import ReactModal from 'react-modal';
-import {DropdownButton, Glyphicon, MenuItem, Clearfix} from 'react-bootstrap'
+import {DropdownButton, MenuItem} from 'react-bootstrap'
 
 export class Navbar extends React.Component {
   constructor(props) {
@@ -24,10 +23,6 @@ export class Navbar extends React.Component {
     );
   }
 
-  logoutClick(){
-    this.props.actions.logout()
-  }
-
   renderLogout() {
 
     return (
@@ -38,14 +33,14 @@ export class Navbar extends React.Component {
         <li>
           <div className="user-dropdown">
             <DropdownButton title={<span className="glyphicon glyphicon-user"></span>} id={`dropdown-basic-1`}>
-              <MenuItem eventKey="1">
+              <MenuItem eventKey="1" href="/account">
                 Account
               </MenuItem>
-              <MenuItem eventKey="2">
+              <MenuItem eventKey="2" href="/subscriptions">
                 Subscription
               </MenuItem>
               <MenuItem divider/>
-              <MenuItem eventKey="3" onSelect={this.logoutClick.bind(this)}>
+              <MenuItem eventKey="3" onSelect={this.props.actions.logout.bind(this)}>
                 Logout
               </MenuItem>
             </DropdownButton>

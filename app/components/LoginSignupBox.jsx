@@ -1,8 +1,6 @@
 import React from 'react'
 import Login from './Login'
-import {Link} from 'react-router';
 import Signup from './Signup.jsx' //this is temporary until we have sign in component
-import Perf from 'react-addons-perf';
 import Modal from 'react-modal';
 
 const customStyles = {

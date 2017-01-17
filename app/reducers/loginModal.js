@@ -1,5 +1,3 @@
-import axios from 'axios'
-
 const reducer = (state=false, action) => {
   switch(action.type) {
   case SHOW_MODAL:
