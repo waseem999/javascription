@@ -8,6 +8,10 @@ export class HomeComponent extends Component{
     this.state = {
       jokes: jokeArr,
     }
+    this.footStyle = {
+      position: 'absolute',
+      bottom: '0px'
+    }
     this.joke = this.randJoke()
     this.randJoke = this.randJoke.bind(this);
   }
@@ -18,7 +22,7 @@ export class HomeComponent extends Component{
 
   render(props){
     return (
-            <div>
+            <div style={{minHeight: '91vh', paddingBottom: '2em'}}>
                 <div>
                     <img src="/main_logo.svg" alt="javaScript(ion)"/>
                 </div>
@@ -36,7 +40,7 @@ export class HomeComponent extends Component{
                     <div>
                         <Link to='/success' >Hear what our happy customers have to say</Link>
                     </div>
-                <div>
+                <div style={this.footStyle}>
                     <h4>{this.joke}</h4>
                 </div>
             </div>

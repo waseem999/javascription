@@ -29,7 +29,6 @@ router.get('/selectedCoffees/:subID', function(req, res, next){
 
 
 router.post('/coffees', mustBeLoggedIn, (req, res, next) => {
-  console.log("server coffee list", req.body.coffees);
     models.Subscriptionproduct.destroy({where: {subscription_id: req.user.subscription_id}})
       .then(deletedRows => {
         return models.Subscription.findOne({where: {id: req.user.subscription_id}})

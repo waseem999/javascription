@@ -23,7 +23,7 @@ import Payments from './components/PaymentsContainer.jsx';
 
 
 const ExampleAppComponent = props => (
-  <div>
+  <div style={{backgroundColor: '#c2c4c6'}}>
     <Navbar
       modalVisible={props.modalVisible}
       showModal={props.actions.showModal}
