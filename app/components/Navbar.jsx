@@ -60,15 +60,12 @@ export class Navbar extends React.Component {
           <span className="icon-bar"></span>
           <span className="icon-bar"></span>
         </button>
-        <Link className="navbar-brand clearfix" to="/"><span> JavaScription</span></Link>
+        <Link className="navbar-brand clearfix" to="/home"><span> JavaScription</span></Link>
       </div>
       <div className="collapse navbar-collapse" id="navbar-collapse-id">
         <ul className="nav navbar-nav">
           <li>
             <Link to="/" className="active">Home</Link>
-          </li>
-          <li>
-            <Link to="/contact" activeClassName="active">Contact</Link>
           </li>
         </ul>
         {this.props.user  ?
