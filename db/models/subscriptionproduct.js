@@ -6,7 +6,7 @@ const db = require('APP/db')
 const subscriptionproductSchema = {
   quantity: {
     type: Sequelize.INTEGER,
-    allowNull: false
+    defaultValue: 1
   }
 };
 

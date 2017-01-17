@@ -28,13 +28,33 @@ router.get('/selectedCoffees/:subID', function(req, res, next){
 })
 
 
+router.post('/coffees', mustBeLoggedIn, (req, res, next) => {
+  console.log("server coffee list", req.body.coffees);
+    models.Subscriptionproduct.destroy({where: {subscription_id: req.user.subscription_id}})
+      .then(deletedRows => {
+        return models.Subscription.findOne({where: {id: req.user.subscription_id}})
+      })
+      .then(subscription => {
+        return Promise.all(req.body.coffees.map(coffee => {
+          subscription.addProducts(coffee.id)
+        }))
+      })
+      .then(newSubscriptions => {
+        res.send(newSubscriptions);
+      })
+      .catch(next);
+});
+
 router.put('/coffees', mustBeLoggedIn, (req, res, next) => {
-  console.log(req.query.data)
-  Subscription.update({where: {id: req.user.id}, include:[{model: models.product}]})
-    .then(coffees => {
-      res.send(coffees);
-    })
-    .catch(next);
+  let coffee = req.body.coffees;
+  Subscription.findOne({where: {id:req.user.subscription_id}})
+  .then(sub => {
+    sub.addProducts(coffee.id)
+  })
+  .then(coffees => {
+    res.send(coffees);
+  })
+  .catch(next);
 });
 
 router.use('/days', (req, res, next) =>{

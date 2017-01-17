@@ -71,21 +71,21 @@ class SelectedCoffees extends Component{
     }
 
     findCoffee(name, tier){
-        let selectedTier = `this.state.allcoffees.tier${tier}`
+        let selectedTier = this.state.allCoffees[`tier${tier}`]
         for(let i=0; i<selectedTier.length;i++){
-            if(selectedTier[i].name === name){
+            if(selectedTier[i].name == name){
                 return selectedTier[i]
             }
         }
     }
 
     handleCoffeeClick(e){
-        let selectedCoffee = this.findCoffee(e.name, e.target.dataset.tier);
+        let selectedCoffee = this.findCoffee(e.target.name, e.target.dataset.tier);
         axios({method: 'put', url:'/api/subscription/coffees', data:{
             coffees: selectedCoffee
         }})
         .then(coffee =>{
-            this.props.changeSelectedCoffees(coffee);
+            this.props.changeSelectedCoffees([selectedCoffee]);
         })
         .catch(err => {
             console.log("ERROR in selected coffee submit", err.status, err);
@@ -122,7 +122,7 @@ class SelectedCoffees extends Component{
                                         <span >{coffee.name}</span>
                                     </div>
                                     <div>
-                                        <button name={coffee.name} data-tier={coffee.tier} onClick={this.handleCoffeeClick}>Add to Subscription</button>
+                                        <button name={coffee.name} data-tier={coffee.tier_id} onClick={this.handleCoffeeClick}>Add to Subscription</button>
                                     </div>
                                 </div>
                             )
@@ -146,7 +146,7 @@ class SelectedCoffees extends Component{
                                         <span>{coffee.name}</span>
                                     </div>
                                     <div>
-                                        <button name={coffee.name} data-tier={coffee.tier} onClick={this.handleCoffeeClick}>Add to Subscription</button>
+                                        <button name={coffee.name} data-tier={coffee.tier_id} onClick={this.handleCoffeeClick}>Add to Subscription</button>
                                     </div>
                                 </span>
                             )
@@ -170,7 +170,7 @@ class SelectedCoffees extends Component{
                                         <span>{coffee.name}</span>
                                     </div>
                                     <div>
-                                        <button name={coffee.name} data-tier={coffee.tier} onClick={this.handleCoffeeClick}>Add to Subscription</button>
+                                        <button name={coffee.name} data-tier={coffee.tier_id} onClick={this.handleCoffeeClick}>Add to Subscription</button>
                                     </div>
                                 </span>
                             )
