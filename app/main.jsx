@@ -69,9 +69,7 @@ render (
         <IndexRedirect to="/home" />
         <Route path="/home" component={HomeContainer} />
         <Route path="/login" component={Login} />
-
-        <Route path="/subscriptions" component={Subscription} 
-        onEnter={loadSubscriptionOnEnter}/>
+        <Route path="/subscriptions" component={Subscription} onEnter={loadSubscriptionOnEnter}/>
         <Route path="/payments" component={Payments} />
         <Route path="/onecoffee" component={SingleCoffee} />
         <Route path="/stories" component={HomeContainer} />
