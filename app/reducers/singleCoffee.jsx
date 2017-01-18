@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const initialState = {
   coffeeModalOpen: false,
-  selectedCoffee: null
+  selectedCoffee: {name: null, roast: null, description: null, photo: null, region: null}
 }
 
 const reducer = (state=initialState, action) => {
@@ -16,6 +16,7 @@ const reducer = (state=initialState, action) => {
     break;
   case SET_SELECTED_COFFEE:
     newState.selectedCoffee = action.selectedCoffee
+    break;
   default: 
     return state;
   }
@@ -40,13 +41,13 @@ export const hideCoffeeModal = () => ({
 export const loadCoffee = function(selectedCoffee){
   return {
     type: SET_SELECTED_COFFEE,
-    selectedCoffee
+    selectedCoffee: selectedCoffee
   }
 };
 
-export const getCoffee = (coffeeId) => {
+export const getCoffee = (cId) => {
   return(dispatch) => {
-    axios.get(`/api/coffee/singleCoffee/${coffeeId}`)
+    axios.get(`/api/coffee/singleCoffee/${cId}`)
     .then( res => {
       dispatch(loadCoffee(res.data))
     })
