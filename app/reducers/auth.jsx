@@ -49,9 +49,9 @@ export const whoami = () =>
   dispatch =>
     axios.get('/api/auth/whoami')
       .then(response => {
+        const user = response.data
+        dispatch(authenticated(user))
         if(response.data){
-          const user = response.data
-          dispatch(authenticated(user))
           dispatch(getUsersCoffees(user.subscription_id))
         }
       })
