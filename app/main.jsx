@@ -9,8 +9,8 @@ import store from './store'
 import {showModal, hideModal} from './reducers/loginModal';
 import {showCoffeeModal, hideCoffeeModal} from 'APP/app/reducers/singleCoffee.jsx';
 import { getSubscription } from './reducers/subscription';
+import { getQuote } from './reducers/quote';
 import { whoAmI } from './reducers/auth';
-
 import Login from './components/Login';
 import WhoAmI from './components/WhoAmI';
 import Navbar from './components/Navbar';
@@ -22,7 +22,9 @@ import Subscription from './components/SubscriptionContainer.jsx';
 import {loadAllCoffees} from './reducers/allcoffeescreator.jsx';
 import EditAccount from './components/EditAccount.jsx';
 import Payments from './components/PaymentsContainer.jsx';
-import SingleCoffee from './components/SingleCoffee.jsx'
+import SingleCoffee from './components/SingleCoffee.jsx';
+import Quote from './components/Quote.jsx';
+
 
 const ExampleAppComponent = props => (
   <div style={{backgroundColor: '#c2c4c6'}}>
@@ -62,6 +64,11 @@ const loadAllCoffeesOnEnter = function(){
     .catch(err => console.log(err));
 }
 
+
+const loadQuotesOnEnter = function() {
+  store.dispatch(getQuote());
+}
+
 const ExampleApp = connect(mapStateToProps, mapDispatchToProps)(ExampleAppComponent)
 
 render (
@@ -71,6 +78,10 @@ render (
         <IndexRedirect to="/home" />
         <Route path="/home" component={HomeContainer} />
         <Route path="/login" component={Login} />
+        <Route path="/subscriptions" component={Subscription} 
+        onEnter={loadSubscriptionOnEnter}/>
+        <Route path="/quote" component={Quote} 
+        onEnter={loadQuotesOnEnter}/>
         <Route path="/subscriptions" component={Subscription} onEnter={loadSubscriptionOnEnter}/>
         <Route path="/payments" component={Payments} />
         <Route path="/onecoffee" component={SingleCoffee} />

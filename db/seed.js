@@ -3,6 +3,19 @@
 const db = require('APP/db')
 const models = require('APP/db/models')
 
+const seedQuotes = () =>db.Promise.map([
+  {
+    quote: 'The day I ordered Javasciption was the most exciting day of my life',
+    user_id: 4
+  },
+  {
+    quote: 'If only I had javascription, I would have never fallen asleep on the blue line',
+    user_id: 1
+  },
+], quote => models.Quote.create(quote
+  )
+)
+
 const seedUsers = () => db.Promise.map([
   {name: 'so many', email: 'god@example.com', phone_number: 8005555555, password: '1234', account_type: 'customer', address: {
         street_address: 'ljsdf Dr.', unit_number: '11', city: 'Chicago', state: 'IL', zipcode: '60601', comments: "i am god give me coffee", delivery_contact_number: '312456789', delivery_contact_name: "Yaweh", delivery_address_type: 'business'
@@ -83,6 +96,10 @@ db.didSync
   .then(seedUsers)
   .then(users => {
     console.log(`Seeded ${users.length} users OK____________________>>>>>>>>>>>>>>>>>>>>>>>`)
+  })
+  .then(seedQuotes)
+  .then(quotes => {
+    console.log(`Seeded ${quotes.length} quotes OK____________________>>>>>>>>>>>>>>>>>>>>>>>`)
   })
   .then(seedTiers)
   .then(tiers => {
