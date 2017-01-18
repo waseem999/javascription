@@ -13,19 +13,21 @@ export function ToggleEditable (props) {
     props.onChange(e.target.name, e.target.value);
   }
 
-  const {attributes, content, editable, name, inputType} = props;
+  const {attributes, content, editable, label, name, inputType} = props;
 
   return (
     <div className={'c-toggle-editable'}>
     {
-      editable
-      ? React.createElement(inputsByType[inputType],
+      React.createElement(inputsByType[inputType],
         {
           ...attributes,
           value: content,
           name: name,
-          onChange: changeHandler})
-      : content
+          onChange: changeHandler,
+          label: label,
+          editable: editable
+        }
+      )
     }
     </div>
   );
@@ -33,24 +35,39 @@ export function ToggleEditable (props) {
 
 export function TextInput(props) {
   return (
-    <input
-      type='text'
-      {...props} />
+    <div>
+      <label htmlFor={props.name}>{props.label}</label>
+      { props.editable
+        ? <input type='text' {...props} />
+        : props.value
+      }
+    </div>
   );
 }
 
 export function TextArea(props) {
   return (
-    <textarea {...props}>
-      {props.content}
-    </textarea>
+    <div>
+      <label htmlFor={props.name}>{props.label}</label>
+        { props.editable
+          ? <textarea {...props}>
+              {props.content}
+            </textarea>
+          : props.value
+        }
+    </div>
   );
 }
 
 export function Password(props) {
   return (
-    <input type='password'
-      {...props}/>
+    <div>
+      <label htmlFor={props.name}>{props.label}</label>
+      { props.editable
+        ? <input type='password' {...props}/>
+        : props.value
+      }
+    </div>
   );
 }
 

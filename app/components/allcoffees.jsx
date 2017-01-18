@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {addCoffeesCreator} from '../reducers/changeselectedcoffee.jsx';
+import {showCoffeeModal, hideCoffeeModal, getCoffee} from 'APP/app/reducers/singleCoffee.jsx';
+import {SingleCoffee} from './SingleCoffee.jsx'
 import axios from 'axios';
 
 
@@ -105,9 +107,17 @@ class SelectedCoffees extends Component{
         this.setState({filter: e.target.value});
     }
 
+    showCoffeeInfo(coffee, event){
+        event.preventDefault()
+        let coffeeId = coffee.id
+        this.props.actions.getCoffee(coffeeId)
+        this.props.actions.showCoffeeModal()
+    }
 
     render(props){
+
         return (
+      
             <div style={this.wholeStyle}>
                 <div style={{textAlign: 'center'}}>
                     <h4 style={{textDecoration: 'underline'}}>Filter Available Coffees</h4>
@@ -126,7 +136,9 @@ class SelectedCoffees extends Component{
                             return (
                                 <div style={this.coffeeBlockStyle} key={coffee.name}>
                                     <div >
+                                        <button onClick= {this.showCoffeeInfo.bind(this, coffee)}>
                                         <img style={this.coffeePicStyle} src={`${coffee.photo}`} alt="Tier 1 coffee"/>
+                                        </button>
                                     </div>
                                     <div style={{width: 'auto'}}>
                                         <span >{coffee.name}</span>
@@ -151,7 +163,9 @@ class SelectedCoffees extends Component{
                             return (
                                 <span style={this.coffeeBlockStyle} key={coffee.name}>
                                     <div>
+                                        <button onClick= {this.showCoffeeInfo.bind(this, coffee)}>
                                         <img style={this.coffeePicStyle} src={`${coffee.photo}`} alt="Tier 2 coffee"/>
+                                        </button>
                                     </div>
                                     <div>
                                         <span>{coffee.name}</span>
@@ -176,7 +190,9 @@ class SelectedCoffees extends Component{
                             return (
                                 <span style={this.coffeeBlockStyle} key={coffee.name}>
                                     <div>
+                                        <button onClick= {this.showCoffeeInfo.bind(this, coffee)}>
                                         <img style={this.coffeePicStyle} src={`${coffee.photo}`} alt="Tier 3 coffee"/>
+                                        </button>
                                     </div>
                                     <div>
                                         <span>{coffee.name}</span>
@@ -202,13 +218,16 @@ class SelectedCoffees extends Component{
 const mapStateToProps = function(state, ownProps){
     return {
         coffees: state.selectedCoffees,
-        allCoffees: state.allCoffees
+        allCoffees: state.allCoffees,
+        singleCoffee: state.singleCoffee.selectedCoffee,
+        coffeeModalOpen: state.singleCoffee.coffeeModalOpen
     }
 }
 
 const mapDispatchToProps = function(dispatch){
     return {
-        changeSelectedCoffees: bindActionCreators(addCoffeesCreator, dispatch)
+        changeSelectedCoffees: bindActionCreators(addCoffeesCreator, dispatch),
+        actions: bindActionCreators({showCoffeeModal, hideCoffeeModal, getCoffee}, dispatch)
     }
 }
 

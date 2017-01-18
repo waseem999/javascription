@@ -7,8 +7,10 @@ import axios from 'axios';
 
 import store from './store'
 import {showModal, hideModal} from './reducers/loginModal';
+import {showCoffeeModal, hideCoffeeModal} from 'APP/app/reducers/singleCoffee.jsx';
 import { getSubscription } from './reducers/subscription';
 import { getQuote } from './reducers/quote';
+import { whoAmI } from './reducers/auth';
 import Login from './components/Login';
 import WhoAmI from './components/WhoAmI';
 import Navbar from './components/Navbar';
@@ -24,7 +26,6 @@ import SingleCoffee from './components/SingleCoffee.jsx';
 import Quote from './components/Quote.jsx';
 
 
-
 const ExampleAppComponent = props => (
   <div style={{backgroundColor: '#c2c4c6'}}>
     <Navbar
@@ -35,17 +36,19 @@ const ExampleAppComponent = props => (
     <div className="body-rest">
     {props.children}
     {props.modalVisible ? <LoginSignupBox/> : null}
+    {props.coffeeModalVisible ? <SingleCoffee/> : null}
     </div>
   </div>
 )
 
 const mapStateToProps = state => ({
   user: state.auth,
-  modalVisible: state.modalVisible
+  modalVisible: state.modalVisible,
+  coffeeModalVisible: state.singleCoffee.coffeeModalOpen
 })
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({showModal, hideModal}, dispatch)
+  actions: bindActionCreators({showModal, hideModal, showCoffeeModal, hideCoffeeModal}, dispatch)
 })
 
 const loadSubscriptionOnEnter = function() {
@@ -55,11 +58,12 @@ const loadSubscriptionOnEnter = function() {
 
 const loadAllCoffeesOnEnter = function(){
   axios.get('/api/coffee/all')
-  .then(coffees => {
-    store.dispatch(loadAllCoffees(coffees.data))
-  })
-  .catch(err => console.log(err));
+    .then(coffees => {
+      store.dispatch(loadAllCoffees(coffees.data))
+    })
+    .catch(err => console.log(err));
 }
+
 
 const loadQuotesOnEnter = function() {
   store.dispatch(getQuote());
@@ -78,6 +82,7 @@ render (
         onEnter={loadSubscriptionOnEnter}/>
         <Route path="/quote" component={Quote} 
         onEnter={loadQuotesOnEnter}/>
+        <Route path="/subscriptions" component={Subscription} onEnter={loadSubscriptionOnEnter}/>
         <Route path="/payments" component={Payments} />
         <Route path="/onecoffee" component={SingleCoffee} />
         <Route path="/stories" component={HomeContainer} />

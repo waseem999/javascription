@@ -9,6 +9,9 @@ const reducer = (state=null, action) => {
   switch(action.type) {
     case AUTHENTICATED:
       return action.user
+    case APPLY_USER_CHANGES:
+      console.log(action);
+      return state ? Object.assign({}, state, action.user) : null;
   }
   return state
 }
@@ -18,6 +21,11 @@ export const authenticated = user => ({
   type: AUTHENTICATED, user
 })
 
+const APPLY_USER_CHANGES = 'APPLY_USER_CHANGES';
+export const applyUserChanges = user => ({
+  type: APPLY_USER_CHANGES, user
+});
+
 export const login = (username, password) =>
   dispatch =>
     axios.post('/api/auth/local/login',
@@ -25,7 +33,7 @@ export const login = (username, password) =>
       .then(() => {
         dispatch(hideModal())
         dispatch(whoami())
-    })
+      })
       .catch(() => {
         dispatch(loginIssue())
         dispatch(whoami())
@@ -41,10 +49,18 @@ export const whoami = () =>
   dispatch =>
     axios.get('/api/auth/whoami')
       .then(response => {
-        const user = response.data
-        dispatch(authenticated(user))
-        dispatch(getUsersCoffees(user.subscription_id))
+        if(response.data){
+          const user = response.data
+          dispatch(authenticated(user))
+          dispatch(getUsersCoffees(user.subscription_id))
+        }
       })
       .catch(failed => dispatch(authenticated(null)))
+
+export const updateUser = (id, data) =>
+  dispatch =>
+    axios.put(`/api/users/${id}`, {data})
+      .then(({data}) => dispatch(applyUserChanges(data.data)))
+      .catch(console.log.bind(console));
 
 export default reducer
