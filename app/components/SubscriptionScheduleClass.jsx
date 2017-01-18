@@ -32,10 +32,9 @@ export class SubscriptionSchedule extends Component {
       newState.selectedDays = Object.assign({}, state.selectedDays)
       if (value){
         if (!newState.selectedDays[dayofweek]){
-            newState.selectedDays[dayofweek] = "6:00 am"
+          newState.selectedDays[dayofweek] = '6:00 am'
         }
-      }
-      else {
+      } else {
         newState.selectedDays[dayofweek] = null
       }
       return newState;
@@ -43,45 +42,44 @@ export class SubscriptionSchedule extends Component {
   }
 
   handleTimeChange(event){
-      const dayofweek = event.target.name;
-      const value = event.target.value;
-      console.log(value)
-      this.setState(state => {
-        const newState = Object.assign({}, state, state.selectedDays);
-        newState.selectedDays[dayofweek] = value
-        return newState;
-      });
+    const dayofweek = event.target.name;
+    const value = event.target.value;
+    this.setState(state => {
+      const newState = Object.assign({}, state, state.selectedDays);
+      newState.selectedDays[dayofweek] = value
+      return newState;
+    });
   }
 
-setDays(event) {
-  const selectedDays = this.state.selectedDays;
-  axios.put('/api/subscription/days', {
-    selectedDays
-  })
-    .then( () => {
-      store.dispatch(addScheduleFrontEnd(selectedDays));
-    }
+  setDays(event) {
+    const selectedDays = this.state.selectedDays;
+    axios.put('/api/subscription/days', {
+      selectedDays
+    })
+      .then( () => {
+        store.dispatch(addScheduleFrontEnd(selectedDays));
+      }
   )
-}
+  }
 
-componentWillReceiveProps(nextprops) {
-this.setState({
-    selectedDays : nextprops.selectedDays
-  });
-}
+  componentWillReceiveProps(nextprops) {
+    this.setState({
+      selectedDays : nextprops.selectedDays
+    });
+  }
 
   render(){
     const days = this.state.selectedDays;
     return (
             <div>
-              <div style={{textAlign : "center" } }>
+              <div style={{textAlign : 'center' } }>
                   {
                   Object.keys(days).map((day, i) => (
                       <Days handleChange={this.handleChange} handleTimeChange={this.handleTimeChange} day={{name: day, value: days[day]}} days={days} i={i} key={i}/>
                   ))
                   }
               </div>
-                <div style={{textAlign : "center" } }>
+                <div style={{textAlign : 'center' } }>
                   <button type="submit" className="btn btn-primary"
                   onClick={this.setDays}>Submit Days</button>
                 </div>
