@@ -2,8 +2,6 @@ const express = require('express');
 const router = express.Router();
 const models = require('APP/db/models');
 const Subscription = models.Subscription;
-const User = models.User;
-const bodyParser = require('body-parser');
 const {mustBeLoggedIn, forbidden,} = require('./auth.filters')
 
 router.get('/', mustBeLoggedIn, forbidden('user not found'), (req, res, next) => {
@@ -68,7 +66,7 @@ router.use('/days', (req, res, next) =>{
 })
 
 router.put('/days', (req, res, next) => {
-    req.subscription.update({frequencyObject: req.body.selecteddays})
+    req.subscription.update({frequencyObject: req.body.selectedDays})
     .then(subscription =>
     res.json(subscription))
     .catch(next);

@@ -1,6 +1,12 @@
 import React from 'react';
 import {Alert} from 'react-bootstrap';
 
+import {login, logout, whoami} from 'APP/app/reducers/auth';
+import {loginIssue} from 'APP/app/reducers/loginIssues';
+import {hideModal} from 'APP/app/reducers/loginModal';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+
 export class Login extends React.Component {
   constructor(props) {
     super(props)
@@ -23,7 +29,7 @@ export class Login extends React.Component {
 
   render(){
     return (
-      <form className="signUpLogin" onSubmit={this.loginUser.bind(this)}>
+      <form className="sign-up-login" onSubmit={this.loginUser.bind(this)}>
 
       <div className="buffer-oauth">
           <p>
@@ -64,11 +70,6 @@ export class Login extends React.Component {
   }
 }
 
-import {login, logout, whoami} from 'APP/app/reducers/auth';
-import {loginIssue} from 'APP/app/reducers/loginIssues';
-import {hideModal} from 'APP/app/reducers/loginModal';
-import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
 
 function mapStateToProps(state){
   return {

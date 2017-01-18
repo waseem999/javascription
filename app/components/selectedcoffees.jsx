@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import axios from 'axios';
+import {browserHistory} from 'react-router';
 
 import {removeCoffeesCreator} from '../reducers/changeselectedcoffee.jsx';
+import {changePrice} from '../reducers/pricereducer.jsx';
 
 
 
@@ -13,7 +15,7 @@ class SelectedCoffees extends Component{
         this.state = {
             selected: [],
             unSelected: [],
-            frequency: {}
+            frequency: {},
         }
         this.coffeePicStyle = {
             width: '15em'
@@ -44,6 +46,10 @@ class SelectedCoffees extends Component{
         this.setState({selected: nextProps.selectedCoffees, frequency: nextProps.frequency})
     }
 
+    componentDidUpdate(){
+        this.getPrice();
+    }
+
     handleCoffeeClick(e){
         let arrIndex = this.checkList(e.target.name, e.target.dataset.roast);
         if(!arrIndex){
@@ -68,17 +74,22 @@ class SelectedCoffees extends Component{
         return newSelected;  
     }
 
-    handleSubmit(){
-        let newSelected = this.reconcileLists();
-        axios({method: 'post', url:`/api/subscription/coffees`, data:{
-            coffees: newSelected
-        }})
-        .then(subs =>{
-            this.props.changeSelectedCoffees(newSelected);
-        })
-        .catch(err => {
-            console.log("ERROR in selected coffee submit", err.status, err);
-        })
+    handleSubmit(e){
+        if(e.target.name === 'checkout'){
+            browserHistory.push('/payments');
+        } else{
+            let newSelected = this.reconcileLists();
+            axios({method: 'post', url:`/api/subscription/coffees`, data:{
+                coffees: newSelected
+            }})
+            .then(subs =>{
+                this.props.changeSelectedCoffees(newSelected);
+                this.getPrice();
+            })
+            .catch(err => {
+                console.log("ERROR in selected coffee submit", err.status, err);
+            })
+        }
     }
 
     checkList(name){
@@ -118,14 +129,15 @@ class SelectedCoffees extends Component{
             }
         }
         price = price * freq * 4;
+        this.props.changeStorePrice(price);
         return price;
     }
 
-    render(props){
+    render(){
         return (
             <div style={this.selectedCoffeeStyle}>
                 <h3 style={{textDecoration: 'underline'}}>Your Selected Coffees</h3>
-                <h4>${this.getPrice()} per month (4 weeks)</h4>
+                <h4>{this.props.price} per month (4 weeks)</h4>
                 {
                     !!this.state.selected.length ?
                     this.state.selected.map((coffee) => {
@@ -137,7 +149,7 @@ class SelectedCoffees extends Component{
                                     data-coffee={coffee}
                                     style={this.coffeeBlockStyle}>
                                     <div style={
-                                        !!this.state.unSelected.includes(coffee.name) ?
+                                        this.state.unSelected.includes(coffee.name) ?
                                         {backgroundColor: 'red'}
                                         :
                                         {backgroundColor: ''}
@@ -166,6 +178,7 @@ class SelectedCoffees extends Component{
                 { !!this.state.selected.length ? 
                     <div>
                         <button className="btn btn-warning" onClick={this.handleSubmit} >Remove Selections</button>
+                        <button className="btn btn-success" name="checkout" onClick={this.handleSubmit} >Checkout</button>
                     </div>
                     :
                     null
@@ -179,13 +192,15 @@ class SelectedCoffees extends Component{
 const mapStateToProps = function(state, ownProps){
     return {
         selectedCoffees: state.selectedCoffees,
-        frequency: state.subscription.selecteddays
+        frequency: state.subscription.selectedDays,
+        price: state.price
     }
 }
 
 const mapDispatchToProps = function(dispatch){
     return {
-        changeSelectedCoffees: bindActionCreators(removeCoffeesCreator, dispatch)
+        changeSelectedCoffees: bindActionCreators(removeCoffeesCreator, dispatch),
+        changeStorePrice: bindActionCreators(changePrice, dispatch)
     }
 }
 

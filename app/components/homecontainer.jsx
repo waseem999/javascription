@@ -27,7 +27,7 @@ export class HomeComponent extends Component{
     this.props.actions.showModal()
   }
 
-  render(props){
+  render(){
     return (
             <div style={{minHeight: '91vh', paddingBottom: '2em'}}>
                 <div>

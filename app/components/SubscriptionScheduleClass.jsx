@@ -9,7 +9,7 @@ export class SubscriptionSchedule extends Component {
   constructor(props){
     super(props);
     this.state = {
-      selecteddays: {
+      selectedDays: {
         Sunday: null,
         Monday: null,
         Tuesday: null,
@@ -27,17 +27,16 @@ export class SubscriptionSchedule extends Component {
   handleChange(event){
     const dayofweek = event.target.name;
     const value = event.target.value==='true';
-    let time = this.state.selecteddays[dayofweek];
     this.setState(state => {
       const newState = Object.assign({}, state)
-      newState.selecteddays = Object.assign({}, state.selecteddays)
+      newState.selectedDays = Object.assign({}, state.selectedDays)
       if (value){
-        if (!newState.selecteddays[dayofweek]){
-            newState.selecteddays[dayofweek] = "6:00 am"
+        if (!newState.selectedDays[dayofweek]){
+            newState.selectedDays[dayofweek] = "6:00 am"
         }
       }
       else {
-        newState.selecteddays[dayofweek] = null
+        newState.selectedDays[dayofweek] = null
       }
       return newState;
     });
@@ -48,31 +47,31 @@ export class SubscriptionSchedule extends Component {
       const value = event.target.value;
       console.log(value)
       this.setState(state => {
-        const newState = Object.assign({}, state, state.selecteddays);
-        newState.selecteddays[dayofweek] = value
+        const newState = Object.assign({}, state, state.selectedDays);
+        newState.selectedDays[dayofweek] = value
         return newState;
       });
   }
 
 setDays(event) {
-  const selecteddays = this.state.selecteddays;
+  const selectedDays = this.state.selectedDays;
   axios.put('/api/subscription/days', {
-    selecteddays
+    selectedDays
   })
     .then( () => {
-      store.dispatch(addScheduleFrontEnd(selecteddays));
+      store.dispatch(addScheduleFrontEnd(selectedDays));
     }
   )
 }
 
 componentWillReceiveProps(nextprops) {
 this.setState({
-    selecteddays : nextprops.selecteddays
-  });;
+    selectedDays : nextprops.selectedDays
+  });
 }
 
   render(){
-    const days = this.state.selecteddays;
+    const days = this.state.selectedDays;
     return (
             <div>
               <div style={{textAlign : "center" } }>
@@ -93,11 +92,11 @@ this.setState({
 
 function mapStateToProps(state){
   return {
-    selecteddays : state.subscription.selecteddays
+    selectedDays : state.subscription.selectedDays
   }
 }
 
-function mapDispatchToProps(state){
+function mapDispatchToProps(dispatch){
   return {
   }
 }
