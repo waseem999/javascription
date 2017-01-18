@@ -7,6 +7,8 @@ const rootReducer = combineReducers({
   subscription: require('./subscription').default,
   loginProb: require('./loginIssues.jsx').default,
   signinProb: require('./signinIssues.jsx').default,
+  allCoffees: require('./allcoffeescreator.jsx').default,
+  singleCoffee: require('./singleCoffee.jsx').default,
   allCoffees: require('./allcoffeescreator.jsx').default
 })
 

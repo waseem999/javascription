@@ -37,13 +37,13 @@ router.get('/all/:userID', function(req, res, next) {
     .catch(next);
 })
 
-// router.get('/:coffeeID', function(req, res, next) {
-//   models.Product.findOne({where: {id: req.params.coffeeID}})
-//     .then(coffee => {
-//       res.send(coffee);
-//     })
-//     .catch(next);
-// })
+router.get('singleCoffee/:coffeeID', function(req, res, next) {
+  return models.Product.findById(req.params.coffeeID)
+    .then((coffee) => {
+      res.json(coffee);
+    })
+    .catch(next);
+})
 
 router.get('/:tier', function(req, res, next) {
   models.Product.findAll({

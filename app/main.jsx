@@ -7,6 +7,7 @@ import axios from 'axios';
 
 import store from './store'
 import {showModal, hideModal} from './reducers/loginModal';
+import {showCoffeeModal, hideCoffeeModal} from 'APP/app/reducers/singleCoffee.jsx';
 import { getSubscription } from './reducers/subscription';
 
 import Login from './components/Login';
@@ -33,17 +34,19 @@ const ExampleAppComponent = props => (
     <div className="body-rest">
     {props.children}
     {props.modalVisible ? <LoginSignupBox/> : null}
+    {props.coffeeModalVisible ? <SingleCoffee/> : null}
     </div>
   </div>
 )
 
 const mapStateToProps = state => ({
   user: state.auth,
-  modalVisible: state.modalVisible
+  modalVisible: state.modalVisible,
+  coffeeModalVisible: state.singleCoffee.coffeeModalOpen
 })
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({showModal, hideModal}, dispatch)
+  actions: bindActionCreators({showModal, hideModal, showCoffeeModal, hideCoffeeModal}, dispatch)
 })
 
 const loadSubscriptionOnEnter = function() {
