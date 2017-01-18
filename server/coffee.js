@@ -1,10 +1,16 @@
 
 const express = require('express');
-
-
 const router = express.Router();
 const models = require('APP/db/models');
 
+
+router.get('/singleCoffee/:coffeeID', function(req, res, next) {
+  return models.Product.findById(req.params.coffeeID)
+    .then((coffee) => {
+      res.json(coffee);
+    })
+    .catch(next);
+})
 
 router.post('/new', function(req, res, next) {
   const coffeeData = req.body;
@@ -38,13 +44,6 @@ router.get('/all/:userID', function(req, res, next) {
     .catch(next);
 })
 
-router.get('singleCoffee/:coffeeID', function(req, res, next) {
-  return models.Product.findById(req.params.coffeeID)
-    .then((coffee) => {
-      res.json(coffee);
-    })
-    .catch(next);
-})
 
 router.get('/:tier', function(req, res, next) {
   models.Product.findAll({

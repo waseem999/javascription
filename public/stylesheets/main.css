@@ -42,6 +42,9 @@ html {
 .selected-coffee {
   background-color: red; }
 
+.coffee-pic {
+  height: 200px; }
+
 .user-dropdown {
   vertical-align: center;
   position: relative;
@@ -60,4 +63,5 @@ html {
 
 .body-rest {
   width: calc(100% - 22px);
-  margin: 0 auto; }
+  margin: 0 auto;
+  background-color: #c2c4c6; }

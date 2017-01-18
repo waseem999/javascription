@@ -109,7 +109,8 @@ class SelectedCoffees extends Component{
 
     showCoffeeInfo(coffee, event){
         event.preventDefault()
-        this.props.actions.getCoffee(coffee.id)
+        let coffeeId = coffee.id
+        this.props.actions.getCoffee(coffeeId)
         this.props.actions.showCoffeeModal()
     }
 
@@ -162,7 +163,9 @@ class SelectedCoffees extends Component{
                             return (
                                 <span style={this.coffeeBlockStyle} key={coffee.name}>
                                     <div>
+                                        <button onClick= {this.showCoffeeInfo.bind(this, coffee)}>
                                         <img style={this.coffeePicStyle} src={`${coffee.photo}`} alt="Tier 2 coffee"/>
+                                        </button>
                                     </div>
                                     <div>
                                         <span>{coffee.name}</span>
@@ -187,7 +190,9 @@ class SelectedCoffees extends Component{
                             return (
                                 <span style={this.coffeeBlockStyle} key={coffee.name}>
                                     <div>
+                                        <button onClick= {this.showCoffeeInfo.bind(this, coffee)}>
                                         <img style={this.coffeePicStyle} src={`${coffee.photo}`} alt="Tier 3 coffee"/>
+                                        </button>
                                     </div>
                                     <div>
                                         <span>{coffee.name}</span>
