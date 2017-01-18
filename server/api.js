@@ -10,6 +10,7 @@ api
   .use('/subscription', require('./subscription'))
   .use('/coffee', require('./coffee'))
   .use('/payments', require('./payments'))
+  .use('/quote', require('./quote'))
 
 // Send along any errors
 api.use((err, req, res, next) => {

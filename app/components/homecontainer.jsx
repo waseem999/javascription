@@ -45,7 +45,7 @@ export class HomeComponent extends Component{
                         <a onClick={this.signUpClick.bind(this)}>Sign up for coffee delivery!</a>
                     </div>
                     <div>
-                        <Link to='/success' >Hear what our happy customers have to say</Link>
+                        <Link to='/quote' >Hear what our happy customers have to say</Link>
                     </div>
                 <div style={this.footStyle}>
                     <h4>{this.joke}</h4>

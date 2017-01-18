@@ -10,6 +10,7 @@ const Address = require('./address');
 const Subscription = require('./subscription');
 const Tier = require('./tier');
 const Subscriptionproduct = require('./subscriptionproduct');
+const Quote = require('./quote');
 
 User.belongsToMany(Product, {as: 'favorite', through: 'favorite'});
 Product.belongsToMany(User, {as: 'favoriter', through: 'favorite'});
@@ -23,6 +24,7 @@ Product.belongsTo(Tier);
 Tier.hasMany(Product);
 
 User.belongsTo(Subscription);
+Quote.belongsTo(User);
 Subscription.hasMany(User);
 
-module.exports = {User, Product, Address, Subscription, Tier, Subscriptionproduct}
+module.exports = {User, Product, Address, Subscription, Tier, Subscriptionproduct, Quote}
