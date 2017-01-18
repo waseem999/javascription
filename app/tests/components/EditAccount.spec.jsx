@@ -17,8 +17,4 @@ describe('<EditAccount />', () => {
   it('should render without errors', () => {
     expect(wrapper).to.exist;
   });
-
-  it('should have the class `.c-edit-account`', () => {
-    expect(wrapper).to.have.className('c-edit-account');
-  });
 });

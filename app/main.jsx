@@ -8,6 +8,7 @@ import axios from 'axios';
 import store from './store'
 import {showModal, hideModal} from './reducers/loginModal';
 import { getSubscription } from './reducers/subscription';
+import { whoAmI } from './reducers/auth';
 
 import Login from './components/Login';
 import WhoAmI from './components/WhoAmI';
@@ -21,7 +22,6 @@ import {loadAllCoffees} from './reducers/allcoffeescreator.jsx';
 import EditAccount from './components/EditAccount.jsx';
 import Payments from './components/PaymentsContainer.jsx';
 import SingleCoffee from './components/SingleCoffee.jsx'
-
 
 const ExampleAppComponent = props => (
   <div style={{backgroundColor: '#c2c4c6'}}>
@@ -53,12 +53,11 @@ const loadSubscriptionOnEnter = function() {
 
 const loadAllCoffeesOnEnter = function(){
   axios.get('/api/coffee/all')
-  .then(coffees => {
-    store.dispatch(loadAllCoffees(coffees.data))
-  })
-  .catch(err => console.log(err));
+    .then(coffees => {
+      store.dispatch(loadAllCoffees(coffees.data))
+    })
+    .catch(err => console.log(err));
 }
-
 
 const ExampleApp = connect(mapStateToProps, mapDispatchToProps)(ExampleAppComponent)
 
