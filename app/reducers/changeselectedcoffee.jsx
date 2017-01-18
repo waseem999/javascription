@@ -32,12 +32,16 @@ export function addCoffeesCreator(coffeeList){
 }
 
 export const getUsersCoffees = (id) => {
-  return dispatch => {
-    axios.get(`/api/subscription/selectedCoffees/${id}`)
-      .then(response => {
-        dispatch(addCoffeesCreator(response.data[0].products))
-      })
-      .catch((error)=> console.error(error));
+    if(id){
+        return dispatch => {
+            axios.get(`/api/subscription/selectedCoffees/${id}`)
+            .then(response => {
+                dispatch(addCoffeesCreator(response.data[0].products))
+            })
+            .catch((error)=> console.log(error, error.stack));
+        }
+    }else {
+        return;
   };
 };
 

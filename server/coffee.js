@@ -7,10 +7,11 @@ const models = require('APP/db/models');
 
 
 router.post('/new', function(req, res, next) {
-  const coffeeData = req.body.data;
+  const coffeeData = req.body;
   models.Product.create(coffeeData)
-    .then(success => {
-      res.send(success);
+    .then(newCoffee => {
+      newCoffee.setTier(req.body.tier)
+      res.send(newCoffee);
     })
     .catch(next);
 })

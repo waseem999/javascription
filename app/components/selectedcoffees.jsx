@@ -137,7 +137,7 @@ class SelectedCoffees extends Component{
         return (
             <div style={this.selectedCoffeeStyle}>
                 <h3 style={{textDecoration: 'underline'}}>Your Selected Coffees</h3>
-                <h4>{this.props.price} per month (4 weeks)</h4>
+                <h4>${this.props.price} per month (4 weeks)</h4>
                 {
                     !!this.state.selected.length ?
                     this.state.selected.map((coffee) => {
