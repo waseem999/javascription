@@ -12,7 +12,14 @@ export class HomeComponent extends Component{
     }
     this.footStyle = {
       position: 'absolute',
-      bottom: '0px'
+      bottom: '0px',
+      marginBottom: '5px',
+      backgroundColor: '#212223',
+      borderRadius: '3px',
+      color: '#c2c4c6',
+      padding: '0px 5px 0px 5px',
+      textAlign: 'center',
+      width: '100%'
     }
     this.joke = this.randJoke()
     this.randJoke = this.randJoke.bind(this);
@@ -46,6 +53,9 @@ export class HomeComponent extends Component{
                     </div>
                     <div>
                         <Link to='/success' >Hear what our happy customers have to say</Link>
+                    </div>
+                    <div>
+                        <Link to='/coffee' >Add a Coffee</Link>
                     </div>
                 <div style={this.footStyle}>
                     <h4>{this.joke}</h4>
